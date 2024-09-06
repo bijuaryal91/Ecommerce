@@ -64,9 +64,9 @@ include_once("./includes/connect.php");
                 </ul>
                 <span>(88)</span>
               </div>
-              <button class="add-to-cart">
-                Add to cart
-              </button>
+              <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
+                  Add to cart
+                </button></a>
             </div>
           </li>
         <?php
@@ -164,9 +164,9 @@ include_once("./includes/connect.php");
             </ul>
             <span>(88)</span>
           </div>
-          <button class="add-to-cart">
-            Add to cart
-          </button>
+          <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
+              Add to cart
+            </button></a>
         </div>
       </div>
     <?php
@@ -215,9 +215,9 @@ include_once("./includes/connect.php");
             </ul>
             <span>(88)</span>
           </div>
-          <button class="add-to-cart">
-            Add to cart
-          </button>
+          <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
+              Add to cart
+            </button></a>
         </div>
       </div>
     <?php
