@@ -1,0 +1,114 @@
+Date : 2024-09-05 23:56:46
+Directory : c:\xampp\htdocs\ReeyaEcommerce
+Total : 76 files,  8457 codes, 464 comments, 876 blanks, all 9797 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| PHP        |         61 |      4,188 |        308 |        612 |      5,108 |
+| CSS        |          4 |      2,606 |         45 |        158 |      2,809 |
+| HTML       |          1 |      1,195 |          5 |          8 |      1,208 |
+| JavaScript |         10 |        468 |        106 |         98 |        672 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                             | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                |         76 |      8,457 |        464 |        876 |      9,797 |
+| . (Files)                                                        |         13 |      2,716 |         27 |        134 |      2,877 |
+| admin                                                            |         39 |      2,749 |        277 |        445 |      3,471 |
+| admin (Files)                                                    |         17 |      1,562 |        180 |        253 |      1,995 |
+| admin\css                                                        |          2 |        665 |          4 |         62 |        731 |
+| admin\include                                                    |          3 |        148 |         10 |         21 |        179 |
+| admin\js                                                         |          2 |         14 |         52 |         19 |         85 |
+| admin\php                                                        |         15 |        360 |         31 |         90 |        481 |
+| css                                                              |          2 |      1,941 |         41 |         96 |      2,078 |
+| includes                                                         |          5 |        238 |         16 |         30 |        284 |
+| js                                                               |          8 |        454 |         54 |         79 |        587 |
+| php                                                              |          9 |        359 |         49 |         92 |        500 |
++------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                         | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\xampp\htdocs\ReeyaEcommerce\404.html                          | HTML       |      1,195 |          5 |          8 |      1,208 |
+| c:\xampp\htdocs\ReeyaEcommerce\about.php                         | PHP        |        133 |          0 |          8 |        141 |
+| c:\xampp\htdocs\ReeyaEcommerce\account.php                       | PHP        |          0 |          0 |          1 |          1 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\add-admin.php               | PHP        |         79 |         11 |         11 |        101 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\add-category.php            | PHP        |         75 |         11 |         11 |         97 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\add-product.php             | PHP        |        150 |         14 |         17 |        181 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\add-redeem.php              | PHP        |         83 |         11 |         11 |        105 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\admin.php                   | PHP        |         86 |         14 |         17 |        117 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\category.php                | PHP        |         79 |         12 |         16 |        107 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\css\404.css                 | CSS        |        101 |          2 |          4 |        107 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\css\style.css               | CSS        |        564 |          2 |         58 |        624 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\edit-category.php           | PHP        |         83 |         11 |         12 |        106 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\edit-product.php            | PHP        |        117 |         11 |         14 |        142 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\edit-redeem.php             | PHP        |         95 |         11 |         13 |        119 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\include\bottom.php          | PHP        |          7 |          0 |          3 |         10 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\include\logout.php          | PHP        |         13 |          0 |          3 |         16 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\include\sidebar.php         | PHP        |        128 |         10 |         15 |        153 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\index.php                   | PHP        |         77 |          0 |         12 |         89 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\js\datatable.js             | JavaScript |          0 |         51 |         12 |         63 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\js\index.js                 | JavaScript |         14 |          1 |          7 |         22 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\login.php                   | PHP        |        116 |          3 |         16 |        135 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\orders.php                  | PHP        |         91 |         12 |         19 |        122 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\payments.php                | PHP        |         91 |         12 |         19 |        122 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\add-admin.php           | PHP        |         24 |          0 |          6 |         30 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\add-category.php        | PHP        |         14 |          0 |          6 |         20 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\add-product.php         | PHP        |         66 |         15 |         18 |         99 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\add-redeem.php          | PHP        |         25 |          0 |          7 |         32 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\admin-login.php         | PHP        |         26 |          1 |          5 |         32 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\change-admin-status.php | PHP        |         27 |          3 |          9 |         39 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\change-user-status.php  | PHP        |         27 |          3 |          9 |         39 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\connection.php          | PHP        |         10 |          5 |          4 |         19 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\delete-category.php     | PHP        |          9 |          0 |          0 |          9 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\delete-product.php      | PHP        |          9 |          0 |          0 |          9 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\delete-redeem.php       | PHP        |          9 |          0 |          0 |          9 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\edit-category.php       | PHP        |         15 |          0 |          5 |         20 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\edit-product.php        | PHP        |         51 |          4 |         10 |         65 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\edit-redeem.php         | PHP        |         26 |          0 |          6 |         32 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\php\update-admin.php        | PHP        |         22 |          0 |          5 |         27 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\products.php                | PHP        |         88 |         12 |         16 |        116 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\redeem-code.php             | PHP        |         85 |         12 |         16 |        113 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\settings.php                | PHP        |         75 |         11 |         15 |        101 |
+| c:\xampp\htdocs\ReeyaEcommerce\admin\users.php                   | PHP        |         92 |         12 |         18 |        122 |
+| c:\xampp\htdocs\ReeyaEcommerce\cart.php                          | PHP        |        116 |          2 |          8 |        126 |
+| c:\xampp\htdocs\ReeyaEcommerce\checkout.php                      | PHP        |        191 |          8 |         15 |        214 |
+| c:\xampp\htdocs\ReeyaEcommerce\contact.php                       | PHP        |         53 |          0 |          2 |         55 |
+| c:\xampp\htdocs\ReeyaEcommerce\css\404.css                       | CSS        |        101 |          2 |          4 |        107 |
+| c:\xampp\htdocs\ReeyaEcommerce\css\style.css                     | CSS        |      1,840 |         39 |         92 |      1,971 |
+| c:\xampp\htdocs\ReeyaEcommerce\includes\connect.php              | PHP        |         10 |          5 |          4 |         19 |
+| c:\xampp\htdocs\ReeyaEcommerce\includes\footer-menu.php          | PHP        |         44 |          0 |          1 |         45 |
+| c:\xampp\htdocs\ReeyaEcommerce\includes\footer.php               | PHP        |          2 |          0 |          2 |          4 |
+| c:\xampp\htdocs\ReeyaEcommerce\includes\header.php               | PHP        |         68 |          7 |         11 |         86 |
+| c:\xampp\htdocs\ReeyaEcommerce\includes\navbar.php               | PHP        |        114 |          4 |         12 |        130 |
+| c:\xampp\htdocs\ReeyaEcommerce\index.php                         | PHP        |        251 |          1 |         16 |        268 |
+| c:\xampp\htdocs\ReeyaEcommerce\js\aboutUsSlider.js               | JavaScript |         60 |         11 |         14 |         85 |
+| c:\xampp\htdocs\ReeyaEcommerce\js\cartCalculation.js             | JavaScript |         61 |         11 |         15 |         87 |
+| c:\xampp\htdocs\ReeyaEcommerce\js\contactUsValidation.js         | JavaScript |         55 |          6 |          9 |         70 |
+| c:\xampp\htdocs\ReeyaEcommerce\js\flashsalecard.js               | JavaScript |         74 |         10 |         11 |         95 |
+| c:\xampp\htdocs\ReeyaEcommerce\js\imageslider.js                 | JavaScript |         24 |          1 |          4 |         29 |
+| c:\xampp\htdocs\ReeyaEcommerce\js\product-details.js             | JavaScript |         11 |          0 |          2 |         13 |
+| c:\xampp\htdocs\ReeyaEcommerce\js\signinValidation.js            | JavaScript |         64 |          6 |         10 |         80 |
+| c:\xampp\htdocs\ReeyaEcommerce\js\signupValidation.js            | JavaScript |        105 |          9 |         14 |        128 |
+| c:\xampp\htdocs\ReeyaEcommerce\login.php                         | PHP        |         46 |          0 |          0 |         46 |
+| c:\xampp\htdocs\ReeyaEcommerce\order-success.php                 | PHP        |        193 |          4 |         25 |        222 |
+| c:\xampp\htdocs\ReeyaEcommerce\php\add-to-cart.php               | PHP        |         79 |         14 |         23 |        116 |
+| c:\xampp\htdocs\ReeyaEcommerce\php\add-wishlist.php              | PHP        |         36 |          5 |          9 |         50 |
+| c:\xampp\htdocs\ReeyaEcommerce\php\delete-wishlist.php           | PHP        |         28 |          3 |          8 |         39 |
+| c:\xampp\htdocs\ReeyaEcommerce\php\delete_from_cart.php          | PHP        |         31 |          2 |         10 |         43 |
+| c:\xampp\htdocs\ReeyaEcommerce\php\move-all-to-cart.php          | PHP        |         46 |          7 |         11 |         64 |
+| c:\xampp\htdocs\ReeyaEcommerce\php\redeem_coupon.php             | PHP        |         30 |          4 |          6 |         40 |
+| c:\xampp\htdocs\ReeyaEcommerce\php\update-cart.php               | PHP        |         40 |          4 |         10 |         54 |
+| c:\xampp\htdocs\ReeyaEcommerce\php\user-login.php                | PHP        |         33 |          5 |          7 |         45 |
+| c:\xampp\htdocs\ReeyaEcommerce\php\user-signup.php               | PHP        |         36 |          5 |          8 |         49 |
+| c:\xampp\htdocs\ReeyaEcommerce\product-details.php               | PHP        |        185 |          0 |          6 |        191 |
+| c:\xampp\htdocs\ReeyaEcommerce\signup.php                        | PHP        |         64 |          0 |          1 |         65 |
+| c:\xampp\htdocs\ReeyaEcommerce\verify-user.php                   | PHP        |        175 |          7 |         31 |        213 |
+| c:\xampp\htdocs\ReeyaEcommerce\wishlist.php                      | PHP        |        114 |          0 |         13 |        127 |
+| Total                                                            |            |      8,457 |        464 |        876 |      9,797 |
++------------------------------------------------------------------+------------+------------+------------+------------+------------+
