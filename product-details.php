@@ -1,24 +1,42 @@
 <?php
+ob_start();
 include_once("./includes/header.php");
 include_once("./includes/navbar.php");
-?>
+include_once("./includes/connect.php");
 
+
+if (!isset($_GET['productId'])) {
+    header("location:index.php");
+    exit();
+}
+$productId = $_GET['productId'];
+?>
+<?php
+$sql = "SELECT * FROM products WHERE product_id=" . $productId;
+$row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+?>
 <div class="product-view">
     <div class="all-info">
         <div class="images">
             <div class="small-images">
-                <img src="./products/1.jpeg" onclick="updateMainImage(this.src)" height="80" width="80" alt="">
-                <img src="./products/2.jpeg" onclick="updateMainImage(this.src)" height="80" width="80" alt="">
-                <img src="./products/3.jpg" onclick="updateMainImage(this.src)" height="80" width="80" alt="">
-                <img src="./products/4.jpg" onclick="updateMainImage(this.src)" height="80" width="80" alt="">
+                <?php
+                $smallImages = explode(',', $row['small_images']); // Split the string into an array
+                $smallImages = array_reverse($smallImages);
+                // Loop through the array and generate the image elements
+                foreach ($smallImages as $image) {
+                    echo '<img src="./admin/uploads/' . trim($image) . '" onclick="updateMainImage(this.src)" height="80" width="80" alt="">';
+                }
+                ?>
             </div>
+
             <div class="main-image">
-                <img id="main-image" src="./products/2.jpeg" width="400" height="450" alt="">
+                <img id="main-image" src="./admin/uploads/<?php echo $row['main_image_url'] ?>" width="400" height="450" alt="">
             </div>
         </div>
         <div class="view-details">
             <div class="product-view-details">
-                <div class="heading">Havic HV G-92 Gamepad</div>
+                <div class="heading"><?php echo $row['name'] ?></div>
+
                 <div class="reviews">
                     <div class="stars">
                         <i class='bx bxs-star'></i>
@@ -29,8 +47,8 @@ include_once("./includes/navbar.php");
                     </div>
                     <div class="total-reviews">(82)</div>
                 </div>
-                <div class="price">RS. 6500</div>
-                <div class="short-description">PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.</div>
+                <div class="price">RS. <?php echo $row['price'] ?></div>
+                <div class="short-description"><?php echo $row['short_description'] ?></div>
             </div>
             <div class="horizontal-line"></div>
             <div class="product-controls">
@@ -44,22 +62,60 @@ include_once("./includes/navbar.php");
                     <div class="title">Available Weight: </div>
 
                     <select name="" id="">
-                        <option value="12GM">12 GM</option>
+                        <option value="<?php echo $row['weight'] ?>"><?php echo $row['weight'] ?> GM</option>
                     </select>
                 </div>
                 <div class="quantity-sec">
                     <div class="title">QTY.</div>
                     <div class="quantity">
                         <button class=" btn decreaseButton" onclick="changeQuantity(-1)">-</button>
-                        <input id="quantity" type="number" value="1">
+                        <input id="quantity" type="number" value="1" onchange="quantity=this.value">
                         <button class=" btn increaseButton" onclick="changeQuantity(1)">+</button>
                     </div>
                 </div>
+                <script>
+                    function addToCart(productId) {
+                        var quantity = document.getElementById('quantity').value; // Get the quantity value from the input field
+                        if (quantity <= 0) {
+                            alert("Please select a valid quantity."); // Optional: Alert if quantity is not valid
+                            return;
+                        }
+                        window.location.href = 'php/add-to-cart.php?productId=' + productId + '&quantity=' + quantity; // Redirect with productId and quantity
+                    }
+                </script>
+
                 <div class="all-buttons">
-                    <button class="btn normal" class="add-to-cart">Add to Cart</button>
-                    <button class="btn normal" class="add-to-cart">Buy Now</button>
-                    <button class="btn small-button" class="wishlists"><i class='bx bx-heart'></i></button>
-                    <button class="btn small-button" class="share"><i class='bx bx-share-alt'></i></button>
+                    <a onclick="addToCart(<?php echo $row['product_id']; ?>)">
+                        <button class="btn normal add-to-cart">
+                            Add to Cart
+                        </button>
+                    </a>
+
+                    <!-- <button class="btn normal" class="add-to-cart">Buy Now</button> -->
+                    <button class="btn small-button" class="wishlists" onclick="window.location.href='php/add-wishlist.php?productId=<?php echo $row['product_id'] ?>'"><i class='bx bx-heart'></i></button>
+                    <button class="btn small-button share" onclick="shareProduct('<?php echo $row['name']; ?>', '<?php echo $row['product_id']; ?>')">
+                        <i class='bx bx-share-alt'></i>
+                    </button>
+                    <script>
+                        function shareProduct(productName, productId) {
+                            const productUrl = window.location.origin + '/product-details.php?productId=' + productId; // Construct the product URL
+                            const shareText = 'Check out this product: ' + productName + ' - ' + productUrl; // Text to share
+
+                            // Check if the Web Share API is supported
+                            if (navigator.share) {
+                                navigator.share({
+                                        title: productName,
+                                        text: shareText,
+                                        url: productUrl
+                                    })
+                                    .then(() => console.log('Share successful'))
+                                    .catch((error) => console.error('Error sharing:', error));
+                            } else {
+                                // Fallback for browsers that do not support the Web Share API
+                                alert('Share this link: ' + productUrl);
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -67,8 +123,7 @@ include_once("./includes/navbar.php");
     <div class="product-description">
         <div class="heading">Product Details</div>
         <div class="description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas exercitationem ea molestias facere officia quisquam, fugiat nam autem iusto aliquid dolor quod explicabo minima, a ex culpa laborum est! Nobis magnam similique expedita mollitia? Veniam iure excepturi reprehenderit iste perspiciatis possimus mollitia perferendis tempora obcaecati laudantium dignissimos, atque rem modi officia, minima suscipit aliquam odit! Fuga corrupti obcaecati quibusdam nostrum repudiandae provident iure ea earum blanditiis nobis facere eius harum necessitatibus numquam explicabo in ratione, aliquid iusto atque! Facilis qui pariatur enim fuga possimus excepturi iste earum incidunt ipsa illo. Dolorum nesciunt, sequi culpa eligendi dolores temporibus expedita facere quisquam!
-
+            <?php echo $row['long_description'] ?>
         </div>
     </div>
 
@@ -82,107 +137,45 @@ include_once("./includes/navbar.php");
         </div>
     </div>
     <div class="product-list">
-        <div class="product-card">
-            <div class="product-image">
-                <img src="products/5.jpg" alt="">
-                <i class='bx bx-heart'></i>
-            </div>
-            <div class="product-card-details">
-                <h1>Women Bag</h1>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <div class="price">120$</div>
-                <div class="rating">
-                    <ul>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bx-star'></i></li>
-                    </ul>
-                    <span>(88)</span>
+        <?php
+        $sqloo = "SELECT * FROM products ORDER BY RAND() LIMIT 4";
+        $resultoo = mysqli_query($conn, $sqloo);
+        while ($rowo = mysqli_fetch_assoc($resultoo)) {
+        ?>
+            <div class="product-card" onclick="window.location.href='product-details.php?productId=<?php echo $rowo['product_id'] ?>'">
+                <div class="product-image">
+                    <img src="admin/uploads/<?php echo $rowo['main_image_url']; ?>" alt="">
+                    <a href="php/add-wishlist.php?productId=<?php echo $rowo['product_id'] ?>"><i class='bx bx-heart'></i></a>
                 </div>
-                <button class="add-to-cart">
-                    Add to cart
-                </button>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <img src="products/5.jpg" alt="">
-                <i class='bx bx-heart'></i>
-            </div>
-            <div class="product-card-details">
-                <h1>Women Bag</h1>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <div class="price">120$</div>
-                <div class="rating">
-                    <ul>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bx-star'></i></li>
-                    </ul>
-                    <span>(88)</span>
+                <div class="product-card-details">
+                    <h1><?php echo $rowo['name'] ?></h1>
+
+                    <div class="price">Rs. <?php echo $rowo['price'] ?></div>
+                    <div class="rating">
+                        <ul>
+                            <li><i class='bx bxs-star checked'></i></li>
+                            <li><i class='bx bxs-star checked'></i></li>
+                            <li><i class='bx bxs-star checked'></i></li>
+                            <li><i class='bx bxs-star checked'></i></li>
+                            <li><i class='bx bx-star'></i></li>
+                        </ul>
+                        <span>(88)</span>
+                    </div>
+                    <a href="./php/add-to-cart.php?productId=<?php echo $rowo['product_id'] ?>"><button class="add-to-cart">
+                            Add to cart
+                        </button></a>
                 </div>
-                <button class="add-to-cart">
-                    Add to cart
-                </button>
             </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <img src="products/5.jpg" alt="">
-                <i class='bx bx-heart'></i>
-            </div>
-            <div class="product-card-details">
-                <h1>Women Bag</h1>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <div class="price">120$</div>
-                <div class="rating">
-                    <ul>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bx-star'></i></li>
-                    </ul>
-                    <span>(88)</span>
-                </div>
-                <button class="add-to-cart">
-                    Add to cart
-                </button>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <img src="products/5.jpg" alt="">
-                <i class='bx bx-heart'></i>
-            </div>
-            <div class="product-card-details">
-                <h1>Women Bag</h1>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <div class="price">120$</div>
-                <div class="rating">
-                    <ul>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bxs-star checked'></i></li>
-                        <li><i class='bx bx-star'></i></li>
-                    </ul>
-                    <span>(88)</span>
-                </div>
-                <button class="add-to-cart">
-                    Add to cart
-                </button>
-            </div>
-        </div>
+        <?php
+        }
+        ?>
+
     </div>
 
 </div>
+
 <script>
-    document.title = "Products - " + document.title;
+    document.title = "<?php echo $row['name'] ?> - " + document.title;
 </script>
 <script src="./js/product-details.js"></script>
 <?php

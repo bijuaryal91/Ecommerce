@@ -85,7 +85,7 @@ $userId = $_SESSION['user_id'];
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
         ?>
-            <div class="product-card">
+            <div class="product-card" onclick="window.location.href='product-details.php?productId=<?php echo $row['product_id'] ?>'">
                 <div class="product-image">
                     <img src="admin/uploads/<?php echo $row['main_image_url']; ?>" alt="">
                     <a href="php/add-wishlist.php?productId=<?php echo $row['product_id'] ?>"><i class='bx bx-heart'></i></a>
