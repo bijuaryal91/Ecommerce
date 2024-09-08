@@ -39,7 +39,7 @@ include_once("./includes/connect.php");
   </div>
   <div class="flash-card">
     <div class="wrapper">
-      <i class='bx bx-chevron-left indicators'></i>
+      <i class='bx bx-chevron-left indicators' id="left"></i>
       <ul class="carousel">
         <?php
         $sql = "SELECT * FROM products ORDER BY RAND() LIMIT 10";
@@ -64,9 +64,20 @@ include_once("./includes/connect.php");
                 </ul>
                 <span>(88)</span>
               </div>
-              <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
-                  Add to cart
-                </button></a>
+              <?php
+              if ($row['stock_quantity'] < 1) {
+              ?>
+                <a href="#"><button class="add-to-cart">
+                    Out Of Stock
+                  </button></a><?php
+                              } else {
+                                ?>
+                <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
+                    Add to cart
+                  </button></a>
+              <?php
+                              }
+              ?>
             </div>
           </li>
         <?php
@@ -164,9 +175,20 @@ include_once("./includes/connect.php");
             </ul>
             <span>(88)</span>
           </div>
-          <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
-              Add to cart
-            </button></a>
+          <?php
+          if ($row['stock_quantity'] < 1) {
+          ?>
+            <a href="#"><button class="add-to-cart">
+                Out Of Stock
+              </button></a><?php
+                          } else {
+                            ?>
+            <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
+                Add to cart
+              </button></a>
+          <?php
+                          }
+          ?>
         </div>
       </div>
     <?php
@@ -215,9 +237,20 @@ include_once("./includes/connect.php");
             </ul>
             <span>(88)</span>
           </div>
-          <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
-              Add to cart
-            </button></a>
+          <?php
+          if ($row['stock_quantity'] < 1) {
+          ?>
+            <a href="#"><button class="add-to-cart">
+                Out Of Stock
+              </button></a><?php
+                          } else {
+                            ?>
+            <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
+                Add to cart
+              </button></a>
+          <?php
+                          }
+          ?>
         </div>
       </div>
     <?php

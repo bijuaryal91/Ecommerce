@@ -85,11 +85,21 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                 </script>
 
                 <div class="all-buttons">
-                    <a onclick="addToCart(<?php echo $row['product_id']; ?>)">
-                        <button class="btn normal add-to-cart">
-                            Add to Cart
-                        </button>
-                    </a>
+                    <?php
+                    if ($row['stock_quantity'] < 1) {
+                    ?>
+                        <a href="#"><button class="add-to-cart">
+                                Out Of Stock
+                            </button></a><?php
+                                        } else {
+                                            ?>
+                        <a onclick="addToCart(<?php echo $row['product_id']; ?>)"><button class="add-to-cart">
+                                Add to cart
+                            </button></a>
+                    <?php
+                                        }
+                    ?>
+                   
 
                     <!-- <button class="btn normal" class="add-to-cart">Buy Now</button> -->
                     <button class="btn small-button" class="wishlists" onclick="window.location.href='php/add-wishlist.php?productId=<?php echo $row['product_id'] ?>'"><i class='bx bx-heart'></i></button>
@@ -161,9 +171,20 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                         </ul>
                         <span>(88)</span>
                     </div>
-                    <a href="./php/add-to-cart.php?productId=<?php echo $rowo['product_id'] ?>"><button class="add-to-cart">
-                            Add to cart
-                        </button></a>
+                    <?php
+                    if ($rowo['stock_quantity'] < 1) {
+                    ?>
+                        <a href="#"><button class="add-to-cart">
+                                Out Of Stock
+                            </button></a><?php
+                                        } else {
+                                            ?>
+                        <a href="./php/add-to-cart.php?productId=<?php echo $rowo['product_id'] ?>"><button class="add-to-cart">
+                                Add to cart
+                            </button></a>
+                    <?php
+                                        }
+                    ?>
                 </div>
             </div>
         <?php

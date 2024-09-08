@@ -56,9 +56,20 @@ $userId = $_SESSION['user_id'];
                                 </ul>
                                 <span>(88)</span>
                             </div>
-                            <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
-                                    Add to cart
-                                </button></a>
+                            <?php
+                            if ($row1['stock_quantity'] < 1) {
+                            ?>
+                                <a href="#"><button class="add-to-cart">
+                                        Out Of Stock
+                                    </button></a><?php
+                                                } else {
+                                                    ?>
+                                <a href="./php/add-to-cart.php?productId=<?php echo $row1['product_id'] ?>"><button class="add-to-cart">
+                                        Add to cart
+                                    </button></a>
+                            <?php
+                                                }
+                            ?>
                         </div>
                     </div>
         <?php
@@ -104,9 +115,20 @@ $userId = $_SESSION['user_id'];
                         </ul>
                         <span>(88)</span>
                     </div>
-                    <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
-                            Add to cart
-                        </button></a>
+                    <?php
+                    if ($row['stock_quantity'] < 1) {
+                    ?>
+                        <a href="#"><button class="add-to-cart">
+                                Out Of Stock
+                            </button></a><?php
+                                        } else {
+                                            ?>
+                        <a href="./php/add-to-cart.php?productId=<?php echo $row['product_id'] ?>"><button class="add-to-cart">
+                                Add to cart
+                            </button></a>
+                    <?php
+                                        }
+                    ?>
                 </div>
             </div>
         <?php
