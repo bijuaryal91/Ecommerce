@@ -30,8 +30,85 @@ if (mysqli_num_rows($result) > 0) {
         $to = $email;
         $subject = "Verify Your Email Address";
         $verification_link = "http://localhost/reeyaEcommerce/verify-user.php?token=" . $verification_token;
-        $message = "Hello $fname,\n\nPlease click on the link below to verify your email address:\n$verification_link\n\nThank you!";
-        $headers = "From: noreply@rkstores.com";
+
+        // HTML email content
+        $message = "
+        <html>
+        <head>
+            <title>Verify Your Email Address</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    margin: 0;
+                    padding: 20px;
+                }
+                .container {
+                    max-width: 600px;
+                    margin: auto;
+                    background: #ffffff;
+                    padding: 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+                .header {
+                    text-align: center;
+                    padding: 10px 0;
+                }
+                .header img {
+                    max-width: 100%;
+                    height: auto;
+                }
+                h2 {
+                    color: #333;
+                }
+                p {
+                    color: #555;
+                    line-height: 1.5;
+                }
+                .button {
+                    display: inline-block;
+                    padding: 15px 25px;
+                    font-size: 16px;
+                    color: #ffffff;
+                    background-color: #007BFF;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    transition: background-color 0.3s;
+                }
+                .button:hover {
+                    background-color: #0056b3;
+                }
+                .footer {
+                    margin-top: 20px;
+                    font-size: 12px;
+                    color: #777777;
+                    text-align: center;
+                }
+                .ii a[href]
+                {
+                    color:#fff;
+                }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <div class='header'>
+                    <img src='https://bijuaryal91.github.io/QRGenerator/logo.png' alt='Logo' height='200' width='200' />
+                </div>
+                <h2>Hello $fname,</h2>
+                <p>Thank you for signing up! Please click the button below to verify your email address:</p>
+                <a href='$verification_link' class='button'>Verify Email Address</a>
+                <p class='footer'>If you did not create an account, no further action is required.</p>
+            </div>
+        </body>
+        </html>
+        ";
+
+        // Set content-type header for sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= "From: noreply@rkstores.com" . "\r\n";
 
         if (mail($to, $subject, $message, $headers)) {
             echo "success";
@@ -45,4 +122,3 @@ if (mysqli_num_rows($result) > 0) {
 
 // Close the database connection
 mysqli_close($conn);
-?>
