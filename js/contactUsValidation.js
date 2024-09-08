@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   document.title = "Contact - " + document.title;
+
   // Form validation
   document
     .querySelector(".contact-form form")
@@ -26,44 +27,61 @@ document.addEventListener("DOMContentLoaded", () => {
         valid = false;
       };
 
-      // Empty validation
+      // Validation
       if (!name || !email || !phone || !message) {
         showError("All fields are required!");
-        valid = false;
-        return false;
+        return;
       }
+
       if (name.length < 4 || name.length > 50) {
         showError("Name must be between 4 and 50 characters.");
-        valid = false;
-        return false;
+        return;
       }
 
       // Email validation
       const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (!email || !emailRegex.test(email)) {
+      if (!emailRegex.test(email)) {
         showError("Please enter a valid email address.");
-        valid = false;
-        return; // Stop further validation
+        return;
       }
 
       // Phone number validation
       const phoneRegex = /^98\d{8}$/;
-      if (!phone || !phoneRegex.test(phone)) {
+      if (!phoneRegex.test(phone)) {
         showError("Phone number must start with 98 and be 10 digits long.");
-        valid = false;
-        return; // Stop further validation
+        return;
       }
 
-     if(message.length<100)
-     {
-        showError("Message must be at least 100 characters long");
-        valid = false;
-        return; 
-     }
+      // Message length validation
+      if (message.length < 100) {
+        showError("Message must be at least 100 characters long.");
+        return;
+      }
 
+      // If everything is valid, reset the form
       if (valid) {
         errorMessage.classList.add("hidden");
-        alert("form submitted");
+        document.querySelector('.send-contact').innerHTML="Loading...";
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "php/send-contact.php", true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              const response = xhr.response;
+              if (response === "success") {
+                form.reset();
+                document.querySelector('.send-contact').innerHTML="Send Message";
+                location.href = "contact.php";
+              } else {
+                showError(response);
+              }
+            } else {
+              showError("Error Occured");
+            }
+          }
+        };
+        xhr.send(formData);
       }
     });
 });

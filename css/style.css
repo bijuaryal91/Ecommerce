@@ -1696,7 +1696,10 @@
 
 .filter-side input[type="checkbox"],
 .filter-side input[type="radio"] {
-  margin-right: 10px;
+  margin-right: 10px; 
+}
+#priceRange{
+  accent-color: var(--primary-color);
 }
 
 /* Product Side */

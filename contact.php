@@ -32,12 +32,12 @@ include_once("./includes/navbar.php");
         <div class="contact-form">
             <form method="post">
                 <div class="personal-details">
-                    <input type="text" placeholder="Your Name *" id="name">
-                    <input type="text" placeholder="Your Email *" id="email">
-                    <input type="text" placeholder="Your Phone *" id="phone">
+                    <input type="text" name="name" placeholder="Your Name *" id="name">
+                    <input type="text" name="email" placeholder="Your Email *" id="email">
+                    <input type="text" name="phone" placeholder="Your Phone *" id="phone">
                 </div>
                 <div class="message">
-                    <textarea placeholder="Your Message" id="message"></textarea>
+                    <textarea name="message" placeholder="Your Message" id="message"></textarea>
                 </div>
                 <div class="sent-message">
                     <div class="error-message hidden">This is an error</div>
