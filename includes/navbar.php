@@ -9,7 +9,7 @@ if ($user_id > 0) {
     // Fetch the cart ID for the user
     $cart_sql = "SELECT cart_id FROM carts WHERE user_id = '$user_id'";
     $cart_result = mysqli_query($connnnnnnn, $cart_sql);
-    
+
     if ($cart_result && mysqli_num_rows($cart_result) > 0) {
         $cart = mysqli_fetch_assoc($cart_result);
         $cart_id = $cart['cart_id'];
@@ -29,7 +29,7 @@ if ($user_id > 0) {
     // Fetch the wishlist item count for the user
     $wishlist_sql = "SELECT wishlist_id FROM wishlists WHERE user_id = '$user_id'";
     $wishlist_result = mysqli_query($connnnnnnn, $wishlist_sql);
-    
+
     if ($wishlist_result && mysqli_num_rows($wishlist_result) > 0) {
         $wishlist = mysqli_fetch_assoc($wishlist_result);
         $wishlist_id = $wishlist['wishlist_id'];
@@ -61,10 +61,32 @@ if ($user_id > 0) {
     </div>
     <div class="search-bar">
         <input type="search" name="navsearch" placeholder="Search Products" />
-        <button>
+        <button onclick="searchProducts()">
             <i class="fa fa-search"></i>
         </button>
     </div>
+    <script>
+        document.querySelector(".search-bar input").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevents form submission or page refresh
+                searchProducts(); // Call the search function
+            }
+        });
+
+        function searchProducts() {
+            const searchBar = document.querySelector('.search-bar input');
+
+            let str = searchBar.value;
+            console.log(searchBar.value);
+            if (str.trim() === "" || str.length === 0 || !str || str === "") {
+                alert("Search Term is Empty");
+            } else {
+                window.location.href = "productSearch.php?searchTerm=" + searchBar.value;
+            }
+
+
+        }
+    </script>
     <div class="nav-links">
         <div class="find-us links">
             <a href="contact.php"> <i class="bx bx-map"></i> <span>Find us</span> </a>
@@ -122,8 +144,8 @@ if ($user_id > 0) {
         <li><a href="shop.php?category=gold">Gold</a></li>
         <li><a href="shop.php?category=silver">Silver</a></li>
         <li><a href="shop.php?category=diamond">Diamond</a></li>
-        <li><a href="shop.php">Collections</a></li>
-        <li><a href="git-cards.php">Gift Cards</a></li>
+        <li><a href="shop.php?category=ring">Rings</a></li>
+        <li><a href="shop.php?category=necklaces">Necklaces</a></li>
         <li><a href="shop.php">Explore All</a></li>
     </ul>
 </div>

@@ -90,37 +90,37 @@ include_once("./includes/connect.php");
   </div>
   <div class="categories">
     <ul>
-      <a href="#">
+      <a href="shop.php?category=armlet">
         <li>
           <img src="ornaments/armlet.png" alt="">
           <span>Armlet</span>
         </li>
       </a>
-      <a href="#">
+      <a href="shop.php?category=bangle">
         <li>
           <img src="ornaments/bangle.png" alt="">
           <span>Bangle</span>
         </li>
       </a>
-      <a href="#">
+      <a href="shop.php?category=bracelet">
         <li>
           <img src="ornaments/bracelet.png" alt="">
           <span>Bracelet</span>
         </li>
       </a>
-      <a href="#">
+      <a href="shop.php?category=pendant">
         <li>
           <img src="ornaments/pendant.png" alt="">
           <span>Pendant</span>
         </li>
       </a>
-      <a href="#">
+      <a href="shop.php?category=necklace">
         <li>
           <img src="ornaments/necklace.png" alt="">
           <span>Necklace</span>
         </li>
       </a>
-      <a href="#">
+      <a href="shop.php?category=locket">
         <li>
           <img src="ornaments/locket.png" alt="">
           <span>Locket</span>

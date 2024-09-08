@@ -1603,6 +1603,18 @@
 .notification-close-icon:hover {
   background: #efefef;
 }
+
+
+
+
+
+
+/* Product Search Page  */
+.product-search{
+  padding: 50px;
+}
+/* Product Search Page Ends */
+
 @media (max-width: 500px) {
   .notification-wrapper {
     left: 0;
