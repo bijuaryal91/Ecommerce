@@ -1,6 +1,10 @@
 <?php
 include_once('../includes/connect.php');
 session_start();
+if(!isset($_SESSION['user_id']))
+{
+    header("location:../index.php");
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['profilepic']) && $_FILES['profilepic']['error'] === UPLOAD_ERR_OK) {
@@ -38,5 +42,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'No file uploaded or there was an upload error.';
     }
 } else {
-    echo 'Invalid request method.';
+    header("location:../index.php");
 }
