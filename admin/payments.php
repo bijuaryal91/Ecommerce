@@ -115,8 +115,3 @@ include_once('./php/connection.php');
 include_once("./include/bottom.php");
 ?>
 
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
-</script>

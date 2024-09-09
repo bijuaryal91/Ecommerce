@@ -14,7 +14,8 @@ include_once("./php/connection.php")
         <?php
         $idA = $_SESSION['admin_user_id'];
         // Query to fetch data from the 'categories' table
-        $sql = "SELECT * FROM admin ";
+        $sql = "SELECT * FROM admin ORDER BY CASE WHEN id = '$idA' THEN 0 ELSE 1 END, id ASC";
+
         $result = mysqli_query($conn, $sql);
         ?>
         <!-- Data Table -->
@@ -110,8 +111,3 @@ include_once("./include/bottom.php");
 
 ?>
 
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
-</script>

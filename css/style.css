@@ -1787,7 +1787,7 @@
   position: relative;
 }
 
-.account-menu ul li a {
+.account-menu ul li  {
   display: flex;
   gap: 5px;
   align-items: center;
@@ -1797,14 +1797,14 @@
   background: #e8d0d1;
   border-radius: 10px;
 }
-.account-menu ul li:hover {
+.account-menu ul a:hover {
   background: #e8d0d1;
   border-radius: 10px;
 }
-.account-menu ul li:hover a {
+.account-menu ul a:hover li {
   color: var(--primary-color);
 }
-.account-menu ul li.active a {
+.account-menu ul a li.active  {
   color: var(--primary-color);
 }
 .account-menu ul li.active::after {
@@ -1820,7 +1820,7 @@
   background-color: #8c1519;
   border-radius: 0 5px 5px 0;
 }
-.account-menu li.logout a {
+.account-menu a li.logout {
   color: var(--primary-color);
 }
 .account-section .account-content {
@@ -2145,7 +2145,7 @@
     overflow-x: auto;
     /* justify-content: space-evenly; */
   }
-  .account-menu ul li a{
+  .account-menu ul a li{
     width: max-content;
   }
 }

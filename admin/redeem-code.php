@@ -105,9 +105,3 @@ include_once("./include/bottom.php");
 
 
 ?>
-
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
-</script>

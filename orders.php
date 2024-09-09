@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_status'])) {
 
 <div class="account-section">
     <div class="account-menu">
-        <div class="profile-pic">
+    <div class="profile-pic">
             <div class="profile-image">
                 <label for="profilepic" class="label-container">
                     <img src="./users/default.jpg" alt="Profile Image" class="profile-pic" id="profile-img">
@@ -90,7 +90,7 @@ if (!isset($_SESSION['user_status'])) {
         <div class="profile-links">
             <ul>
                 <a href="./account.php">
-                    <li class="active"><i class='bx bx-user'></i><span>Profile</span></li>
+                    <li><i class='bx bx-user'></i><span>Profile</span></li>
                 </a>
                 <a href="./address.php">
                     <li><i class='bx bx-id-card'></i><span>Address</span></li>
@@ -99,7 +99,7 @@ if (!isset($_SESSION['user_status'])) {
                     <li><i class='bx bxs-key'></i><span>Change Password</span></li>
                 </a>
                 <a href="./orders.php">
-                    <li><i class='bx bx-cart'></i><span>Orders</span></li>
+                    <li class="active"><i class='bx bx-cart'></i><span>Orders</span></li>
                 </a>
                 <a href="./gifts.php">
                     <li><i class='bx bxs-coupon'></i><span>Redeem Codes</span></li>
@@ -111,67 +111,99 @@ if (!isset($_SESSION['user_status'])) {
         </div>
     </div>
     <div class="account-content">
-        <div class="account-cards">
-            <div class="gifts cards">
-                <div class="account-card-icon"><i class='bx bxs-coupon'></i></div>
-                <div class="account-card-content">
-                    <div class="account-heading">Gifts</div>
-                    <div class="account-count">0</div>
-                </div>
-            </div>
-            <div class="wishlist cards">
-                <div class="account-card-icon"><i class='bx bxs-heart'></i></div>
-                <div class="account-card-content">
-                    <div class="account-heading">Wishlist</div>
-                    <div class="account-count">0</div>
-                </div>
-            </div>
-            <div class="cart cards">
-                <div class="account-card-icon"><i class='bx bxs-cart'></i></div>
-                <div class="account-card-content">
-                    <div class="account-heading">Cart</div>
-                    <div class="account-count">0</div>
-                </div>
-            </div>
-        </div>
+
         <div class="profile-details">
             <div class="profile-details-heading">
-                <i class="bx bx-user"></i>
-                <p>Profile Details</p>
+                <i class="bx bxs-key"></i>
+                <p>Orders</p>
             </div>
-            <div class="profile-details-inputs">
-                <form action="#" method="post">
-                    <div class="personal-details">
-                        <div class="form-group">
-                            <label for="fname">First Name</label>
-                            <input type="text" id="fname" name="fnmae">
-                        </div>
-                        <div class="form-group">
-                            <label for="lname">Last Name</label>
-                            <input type="text" id="lname" name="lname">
-                        </div>
-                    </div>
-                    <div class="ep">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="text" id="phone" name="phone">
-                        </div>
-                    </div>
-                    <div class="error-message">h</div>
-                    <button type="submit" class="btn" name="submit">Save Changes</button>
+            <!-- Search Bar -->
+            <?php
+            $uid = $_SESSION['user_id'];
+            // Query to fetch data from the 'categories' table
+            $sql = "SELECT * FROM orders WHERE user_id='$uid' ORDER BY order_date DESC";
 
-                </form>
-            </div>
+            $result = mysqli_query($conn, $sql);
+            ?>
+
+            <!-- Data Table -->
+            <table id="example" class="display responsive nowrap" style="width:100%;text-align:center;">
+                <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Tracking No</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Method</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // Check if there are any records in the result
+                    if (mysqli_num_rows($result) > 0) {
+                        $i = 1;
+                        // Loop through each row of data
+                        while ($row = mysqli_fetch_assoc($result)) {
+
+                            echo "<tr data-id='" . $row['order_id'] . "' class='clickable-row' style='cursor:pointer'>";
+                            echo "<td>" . $i . "</td>";
+                            echo "<td>" . $row['tracking_number'] . "</td>";
+                            echo "<td>" . $row['order_date'] . "</td>";
+                            echo "<td>" . $row['total_amount'] . "</td>";
+                            echo "<td>" . $row['payment_method'] . "</td>";
+                            echo "<td>" . $row['status'] . "</td>";
+
+                            echo "</tr>";
+                            $i++;
+                        }
+                    } else {
+                        // If no records are found, display a message
+                        echo "<tr><td colspan='6'>You haven't made any order yet</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 <script>
-    document.title = "My Account - " + document.title;
+    document.title = "Orders - " + document.title;
 </script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable
+        $('#example').DataTable({
+            responsive: true,
+            paging: true,
+            searching: true,
+            ordering: false,
+            info: true,
+            lengthChange: false
+        });
+
+        // Handle row click event
+        $('.clickable-row').on('click', function() {
+            var orderId = $(this).data('id'); // Get the order ID from the data attribute
+            window.location.href = 'view-order.php?id=' + orderId; // Redirect to the view-order page
+        });
+    });
+</script>
+
+
+<style>
+    /* Hide the Next and Previous buttons */
+    .dataTables_paginate .paginate_button.next,
+    .dataTables_paginate .paginate_button.previous {
+        display: none;
+    }
+</style>
+
 <?php
 include_once('./includes/footer-menu.php');
 include_once('./includes/footer.php');
