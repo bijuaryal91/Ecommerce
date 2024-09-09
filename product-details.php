@@ -69,7 +69,7 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                     <div class="title">QTY.</div>
                     <div class="quantity">
                         <button class=" btn decreaseButton" onclick="changeQuantity(-1)">-</button>
-                        <input id="quantity" type="number" value="1" onchange="quantity=this.value">
+                        <input id="quantity" type="number" value="1" onchange="quantity=this.value" disabled>
                         <button class=" btn increaseButton" onclick="changeQuantity(1)">+</button>
                     </div>
                 </div>
