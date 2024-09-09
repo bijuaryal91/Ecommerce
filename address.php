@@ -29,8 +29,8 @@ if (!isset($_SESSION['user_status'])) {
         </div>
         <div class="profile-links">
             <ul>
-                <li class="active"><a href="./account.php"><i class='bx bx-user'></i><span>Profile</span></a></li>
-                <li><a href="./address.php"><i class='bx bx-id-card'></i><span>Address</span></a></li>
+                <li><a href="./account.php"><i class='bx bx-user'></i><span>Profile</span></a></li>
+                <li class="active"><a href="./address.php"><i class='bx bx-id-card'></i><span>Address</span></a></li>
                 <li><a href="./change-password.php"><i class='bx bxs-key'></i><span>Change Password</span></a></li>
                 <li><a href="./orders.php"><i class='bx bx-cart'></i><span>Orders</span></a></li>
                 <li><a href="./bills.php"><i class='bx bx-file'></i><span>Bills</span></a></li>
@@ -40,54 +40,32 @@ if (!isset($_SESSION['user_status'])) {
         </div>
     </div>
     <div class="account-content">
-        <div class="account-cards">
-            <div class="gifts cards">
-                <div class="account-card-icon"><i class='bx bxs-coupon'></i></div>
-                <div class="account-card-content">
-                    <div class="account-heading">Gifts</div>
-                    <div class="account-count">0</div>
-                </div>
-            </div>
-            <div class="wishlist cards">
-                <div class="account-card-icon"><i class='bx bxs-heart'></i></div>
-                <div class="account-card-content">
-                    <div class="account-heading">Wishlist</div>
-                    <div class="account-count">0</div>
-                </div>
-            </div>
-            <div class="cart cards">
-                <div class="account-card-icon"><i class='bx bxs-cart'></i></div>
-                <div class="account-card-content">
-                    <div class="account-heading">Cart</div>
-                    <div class="account-count">0</div>
-                </div>
-            </div>
-        </div>
+       
         <div class="profile-details">
             <div class="profile-details-heading">
-                <i class="bx bx-user"></i>
-                <p>Profile Details</p>
+                <i class="bx bx-id-card"></i>
+                <p>Address</p>
             </div>
             <div class="profile-details-inputs">
                 <form action="#" method="post">
                     <div class="personal-details">
                         <div class="form-group">
-                            <label for="fname">First Name</label>
-                            <input type="text" id="fname" name="fnmae">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address">
                         </div>
                         <div class="form-group">
-                            <label for="lname">Last Name</label>
-                            <input type="text" id="lname" name="lname">
+                            <label for="street">Street</label>
+                            <input type="text" id="street" name="street">
                         </div>
                     </div>
                     <div class="ep">
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email">
+                            <label for="apart">Apartment</label>
+                            <input type="text" id="apart" name="apart">
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="text" id="phone" name="phone">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city">
                         </div>
                     </div>
                     <div class="error-message">h</div>
@@ -99,7 +77,7 @@ if (!isset($_SESSION['user_status'])) {
     </div>
 </div>
 <script>
-    document.title = "My Account - " + document.title;
+    document.title = "Address - " + document.title;
 </script>
 <?php
 include_once('./includes/footer-menu.php');
