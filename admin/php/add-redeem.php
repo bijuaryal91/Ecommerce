@@ -7,15 +7,16 @@ $price = mysqli_real_escape_string($conn, $_POST['price']);
 $code = strtoupper($c);
 $date = mysqli_real_escape_string($conn, $_POST['ed']);
 $remaining = mysqli_real_escape_string($conn, $_POST['remaining']);
+$visibility = mysqli_real_escape_string($conn, $_POST['visibility']);
 $currentTime = date("H:i:s");
 
 $expiry_date = $date . ' ' . $currentTime;
 
 
-if (!empty($code) && !empty($date) && !empty($remaining)) {
+if (!empty($code) && !empty($date) && !empty($remaining) || !empty($visibility)) {
     if (is_numeric($remaining) && $remaining >= 0) {
         if (is_numeric($price) && $price >= 0) {
-            $sql = "INSERT INTO redeemcode(code,price,expires_at,remaining_Usage) VALUES('$code','$price','$expiry_date','$remaining')";
+            $sql = "INSERT INTO redeemcode(code,price,expires_at,remaining_Usage,visibility) VALUES('$code','$price','$expiry_date','$remaining','$visibility')";
     
             if (mysqli_query($conn, $sql)) {
                 echo "success";

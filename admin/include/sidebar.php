@@ -76,16 +76,37 @@ $connection = mysqli_connect("localhost", "root", "", "rk_db");
                 </div>
             </form>
             <?php
+            // Query to get pending orders
             $sqli = "SELECT * FROM orders WHERE status='pending'";
             $resulti = mysqli_query($connection, $sqli);
             ?>
-            <p>Welcome, <?php echo $_SESSION['name'] ?></p>
-            </p>
-            <a href="#" class="notif">
-                <i class='bx bx-bell'></i>
-                <span class="count"><?php echo mysqli_num_rows($resulti) ?></span>
+            <p>Welcome, <?php echo $_SESSION['name']; ?></p>
 
-            </a>
+            <!-- Notification Icon with Dropdown -->
+            <div class="notif">
+                <a href="#">
+                    <i class='bx bx-bell'></i>
+                    <span class="count"><?php echo mysqli_num_rows($resulti); ?></span>
+                </a>
+
+                <!-- Dropdown Menu -->
+                <div class="dropdown-content">
+                    <ul>
+                        <?php if (mysqli_num_rows($resulti) > 0) {
+                            while ($order = mysqli_fetch_assoc($resulti)) { ?>
+                                <li>
+                                    <a href="order.php?id=<?php echo $order['order_id']; ?>">
+                                        New Order #<?php echo $order['order_id']; ?>
+                                    </a>
+                                </li>
+                            <?php }
+                        } else { ?>
+                            <li>No pending orders</li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+
             <a href="settings.php" class="profile">
                 <img src="../logo.png">
             </a>

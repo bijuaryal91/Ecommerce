@@ -70,7 +70,7 @@ include_once("./php/connection.php");
         <li><i class='bx bx-dollar-circle'></i>
             <span class="info">
                 <h3>
-                    Rs. <?php echo number_format($total_sum, 2); ?>
+                    <?php echo number_format($total_sum); ?>
                 </h3>
                 <p>Total Sales</p>
             </span>

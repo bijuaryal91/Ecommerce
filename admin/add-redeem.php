@@ -27,6 +27,13 @@ include_once("./php/connection.php")
                 <label for="remaining">Remaining</label>
                 <input type="text" name="remaining" id="remaining">
             </div>
+            <div class="form-group">
+                <label for="visibility">Visibility</label>
+                <select name="visibility" id="visibility">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+            </div>
             <div class="error-text hidden">h</div>
             <button name="submit" onclick="submitForm()">Add</button>
         </form>

@@ -25,9 +25,9 @@ include_once("./php/connection.php")
                     <th>Code Id</th>
                     <th>Code</th>
                     <th>Price</th>
-                    <th>Created_at</th>
                     <th>Expires_at</th>
                     <th>Remaining Usage</th>
+                    <th>Visibility</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -41,9 +41,9 @@ include_once("./php/connection.php")
                         echo "<td>" . $row['code_Id'] . "</td>";
                         echo "<td>" . $row['code'] . "</td>";
                         echo "<td>" . $row['price'] . "</td>";
-                        echo "<td>" . $row['created_at'] . "</td>";
                         echo "<td>" . $row['expires_at'] . "</td>";
                         echo "<td>" . $row['remaining_Usage'] . "</td>";
+                        echo "<td>" . $row['visibility'] . "</td>";
                         echo "<td class='actions'>
                         <a href='./edit-redeem.php?editId=". $row['code_Id'] ."'><i class='bx bx-edit-alt edit'></i></a>
                         <a href='./php/delete-redeem.php?deleteId=". $row['code_Id'] ."'><i class='bx bx-trash delete'></i></a>

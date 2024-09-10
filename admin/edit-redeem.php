@@ -47,6 +47,13 @@ include_once("./php/connection.php")
                 <input type="hidden" value="<?php echo $id ?>" name="id">
 
             </div>
+            <div class="form-group">
+                <label for="visibility">Visibility</label>
+                <select name="visibility" id="visibility">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+            </div>
             <div class="error-text hidden">h</div>
             <button name="submit" onclick="submitForm()">Update</button>
         </form>

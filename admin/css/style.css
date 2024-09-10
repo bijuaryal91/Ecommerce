@@ -216,7 +216,7 @@ body {
 
 .content nav form {
   max-width: 400px;
-  width: 100%;
+  width: 0;
   margin-right: auto;
 }
 
@@ -234,7 +234,7 @@ body {
   background: var(--grey);
   border-radius: 36px 0 0 36px;
   outline: none;
-  width: 100%;
+  width: 0;
   color: var(--dark);
 }
 
@@ -253,27 +253,70 @@ body {
   cursor: pointer;
 }
 
-.content nav .notif {
-  font-size: 20px;
+/* Notification Icon */
+.notif {
   position: relative;
+  display: inline-block;
 }
 
-.content nav .notif .count {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 20px;
-  height: 20px;
-  background: var(--danger);
+.count {
+  background-color: var(--danger);
+  color: white;
   border-radius: 50%;
-  color: var(--light);
-  border: 2px solid var(--light);
-  font-weight: 700;
-  font-size: 12px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 20px;
+  font-size: 12px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
 }
+
+/* Dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+  top: 25px;
+  border-radius: 4px;
+}
+
+.dropdown-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-content ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-content ul li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.dropdown-content ul li a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-content ul li:last-child {
+  border-bottom: none;
+}
+
+/* Show dropdown on hover */
+.notif:hover .dropdown-content {
+  display: block;
+}
+
 
 .content nav .profile img {
   width: 36px;
@@ -366,10 +409,12 @@ body {
   font-size: 24px;
   font-weight: 600;
   color: var(--dark);
+  font-size: 16px;
 }
 
 .content main .insights li .info p {
   color: var(--dark);
+
 }
 
 /* Data Table */
