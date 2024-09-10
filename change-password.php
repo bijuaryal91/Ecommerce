@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_status'])) {
 
 <div class="account-section">
     <div class="account-menu">
-    <div class="profile-pic">
+        <div class="profile-pic">
             <div class="profile-image">
                 <label for="profilepic" class="label-container">
                     <img src="./users/default.jpg" alt="Profile Image" class="profile-pic" id="profile-img">
@@ -118,7 +118,7 @@ if (!isset($_SESSION['user_status'])) {
                 <p>Change Password</p>
             </div>
             <div class="profile-details-inputs">
-                <form action="#" method="post">
+                <form method="post" id="changePassword" onsubmit="changePassword()">
                     <div class="personal-details">
                         <div class="form-group">
                             <label for="opassword">Old Password</label>
@@ -135,7 +135,7 @@ if (!isset($_SESSION['user_status'])) {
                             <input type="password" id="cpassword" name="cpassword">
                         </div>
                     </div>
-                    <div class="error-message">h</div>
+                    <div class="error-message hidden">h</div>
                     <button type="submit" class="btn" name="submit">Save Changes</button>
 
                 </form>
@@ -145,6 +145,35 @@ if (!isset($_SESSION['user_status'])) {
 </div>
 <script>
     document.title = "Change Password - " + document.title;
+</script>
+<script>
+    function changePassword() {
+        event.preventDefault();
+        const form = document.querySelector("#changePassword");
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+        const errorForm = document.querySelector("#changePassword .error-message");
+        xhr.open("POST", "php/change-password.php", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const response = xhr.response;
+                    if (response === "success") {
+                        errorForm.classList.add("hidden");
+                        alert("Password changed Successfully");
+                        window.location.reload();
+                    } else {
+                        errorForm.classList.remove("hidden");
+                        errorForm.innerHTML = response;
+                    }
+                } else {
+                    errorForm.classList.remove("hidden");
+                    errorForm.innerHTML = "Error Occured";
+                }
+            }
+        };
+        xhr.send(formData);
+    }
 </script>
 <?php
 include_once('./includes/footer-menu.php');

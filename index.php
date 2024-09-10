@@ -88,7 +88,7 @@ include_once("./includes/connect.php");
       <i class='bx bx-chevron-right indicators'></i>
     </div>
   </div>
-  <button class="flash-view-all">View All Products</button>
+  <button class="flash-view-all" onclick="window.location.href='shop.php'">View All Products</button>
   <div class="horizontal-line"></div>
   <div class="category-section">
     <div class="hero-heading">
@@ -196,7 +196,7 @@ include_once("./includes/connect.php");
     ?>
 
   </div>
-  <button class="flash-view-all best-sell">View All</button>
+  <button class="flash-view-all best-sell" onclick="window.location.href='shop.php'">View All</button>
 </div>
 
 
@@ -257,7 +257,7 @@ include_once("./includes/connect.php");
     }
     ?>
   </div>
-  <button class="flash-view-all best-sell">View All</button>
+  <button class="flash-view-all best-sell" onclick="window.location.href='shop.php'">View All</button>
   <div class="horizontal-line"></div>
 </div>
 

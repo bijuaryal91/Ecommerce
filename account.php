@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_status'])) {
 }
 
 
-
+$user_id = $_SESSION['user_id'];
 ?>
 
 <div class="account-section">
@@ -110,27 +110,51 @@ if (!isset($_SESSION['user_status'])) {
             </ul>
         </div>
     </div>
+    <?php
+    $detailsSql = "SELECT * FROM redeemcode WHERE visibility='public'";
+    $result = mysqli_query($conn, $detailsSql);
+    ?>
     <div class="account-content">
         <div class="account-cards">
             <div class="gifts cards">
                 <div class="account-card-icon"><i class='bx bxs-coupon'></i></div>
                 <div class="account-card-content">
                     <div class="account-heading">Gifts</div>
-                    <div class="account-count">0</div>
+                    <div class="account-count"><?php echo mysqli_num_rows($result) ?></div>
                 </div>
             </div>
+            <?php
+
+            $detailsSql = "SELECT * FROM wishlists WHERE user_id='$user_id'";
+            $result = mysqli_query($conn, $detailsSql);
+            $row = mysqli_fetch_assoc($result);
+            $wishlistId = $row['wishlist_id'];
+
+            $aSql = "SELECT * FROM wishlist_items WHERE wishlist_id='$wishlistId'";
+            $aResult = mysqli_query($conn, $aSql);
+            ?>
             <div class="wishlist cards">
                 <div class="account-card-icon"><i class='bx bxs-heart'></i></div>
                 <div class="account-card-content">
                     <div class="account-heading">Wishlist</div>
-                    <div class="account-count">0</div>
+                    <div class="account-count"><?php echo mysqli_num_rows($aResult) ?></div>
                 </div>
             </div>
+            <?php
+
+            $detailsSql = "SELECT * FROM carts WHERE user_id='$user_id'";
+            $result = mysqli_query($conn, $detailsSql);
+            $row = mysqli_fetch_assoc($result);
+            $cartId = $row['cart_id'];
+
+            $aSql = "SELECT * FROM cart_items WHERE cart_id='$cartId'";
+            $aResult = mysqli_query($conn, $aSql);
+            ?>
             <div class="cart cards">
                 <div class="account-card-icon"><i class='bx bxs-cart'></i></div>
                 <div class="account-card-content">
                     <div class="account-heading">Cart</div>
-                    <div class="account-count">0</div>
+                    <div class="account-count"><?php echo mysqli_num_rows($aResult) ?></div>
                 </div>
             </div>
         </div>
@@ -139,29 +163,33 @@ if (!isset($_SESSION['user_status'])) {
                 <i class="bx bx-user"></i>
                 <p>Profile Details</p>
             </div>
+            <?php 
+                $sql = "SELECT * FROM users WHERE user_id='$user_id'";
+                $row = mysqli_fetch_assoc(mysqli_query($conn,$sql));
+            ?>
             <div class="profile-details-inputs">
-                <form action="#" method="post">
+                <form action="#" method="post" id="changeDetails" onsubmit="changeDetails()">
                     <div class="personal-details">
                         <div class="form-group">
                             <label for="fname">First Name</label>
-                            <input type="text" id="fname" name="fnmae">
+                            <input type="text" id="fname" name="fname" value="<?php echo $row['first_name'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="lname">Last Name</label>
-                            <input type="text" id="lname" name="lname">
+                            <input type="text" id="lname" name="lname" value="<?php echo $row['last_name'] ?>">
                         </div>
                     </div>
                     <div class="ep">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email">
+                            <input type="email" id="email" name="email" value="<?php echo $row['email'] ?>" disabled>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="text" id="phone" name="phone">
+                            <input type="text" id="phone" name="phone" value="<?php echo $row['phone_number'] ?>">
                         </div>
                     </div>
-                    <div class="error-message">h</div>
+                    <div class="error-message hidden">h</div>
                     <button type="submit" class="btn" name="submit">Save Changes</button>
 
                 </form>
@@ -171,6 +199,35 @@ if (!isset($_SESSION['user_status'])) {
 </div>
 <script>
     document.title = "My Account - " + document.title;
+</script>
+<script>
+    function changeDetails() {
+        event.preventDefault();
+        const form = document.querySelector("#changeDetails");
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+        const errorForm = document.querySelector("#changeDetails .error-message");
+        xhr.open("POST", "php/change-account.php", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const response = xhr.response;
+                    if (response === "success") {
+                        errorForm.classList.add("hidden");
+                        alert("Details changed Successfully");
+                        window.location.reload();
+                    } else {
+                        errorForm.classList.remove("hidden");
+                        errorForm.innerHTML = response;
+                    }
+                } else {
+                    errorForm.classList.remove("hidden");
+                    errorForm.innerHTML = "Error Occured";
+                }
+            }
+        };
+        xhr.send(formData);
+    }
 </script>
 <?php
 include_once('./includes/footer-menu.php');

@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_status'])) {
     exit();
 }
 
-
+$user_id = $_SESSION['user_id'];
 
 ?>
 
@@ -117,29 +117,33 @@ if (!isset($_SESSION['user_status'])) {
                 <i class="bx bx-id-card"></i>
                 <p>Address</p>
             </div>
+            <?php
+            $sql = "SELECT * FROM users WHERE user_id='$user_id'";
+            $row=mysqli_fetch_assoc(mysqli_query($conn,$sql));
+            ?>
             <div class="profile-details-inputs">
-                <form action="#" method="post">
+                <form onsubmit="changeAddress()" method="post" id="changeAddress">
                     <div class="personal-details">
                         <div class="form-group">
-                            <label for="address">Address</label>
-                            <input type="text" id="address" name="address">
+                            <label for="address">Address*</label>
+                            <input type="text" id="address" name="address" value="<?php echo $row['address'] ?>">
                         </div>
                         <div class="form-group">
-                            <label for="street">Street</label>
-                            <input type="text" id="street" name="street">
+                            <label for="street">Street*</label>
+                            <input type="text" id="street" name="street" value="<?php echo $row['street'] ?>">
                         </div>
                     </div>
                     <div class="ep">
                         <div class="form-group">
                             <label for="apart">Apartment</label>
-                            <input type="text" id="apart" name="apart">
+                            <input type="text" id="apart" name="apart" value="<?php echo $row['apartment'] ?>">
                         </div>
                         <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" id="city" name="city">
+                            <label for="city">City*</label>
+                            <input type="text" id="city" name="city" value="<?php echo $row['city'] ?>">
                         </div>
                     </div>
-                    <div class="error-message">h</div>
+                    <div class="error-message hidden">h</div>
                     <button type="submit" class="btn" name="submit">Save Changes</button>
 
                 </form>
@@ -149,6 +153,35 @@ if (!isset($_SESSION['user_status'])) {
 </div>
 <script>
     document.title = "Address - " + document.title;
+</script>
+<script>
+    function changeAddress() {
+        event.preventDefault();
+        const form = document.querySelector("#changeAddress");
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+        const errorForm = document.querySelector("#changeAddress .error-message");
+        xhr.open("POST", "php/change-address.php", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const response = xhr.response;
+                    if (response === "success") {
+                        errorForm.classList.add("hidden");
+                        alert("Address changed Successfully");
+                        window.location.reload();
+                    } else {
+                        errorForm.classList.remove("hidden");
+                        errorForm.innerHTML = response;
+                    }
+                } else {
+                    errorForm.classList.remove("hidden");
+                    errorForm.innerHTML = "Error Occured";
+                }
+            }
+        };
+        xhr.send(formData);
+    }
 </script>
 <?php
 include_once('./includes/footer-menu.php');
