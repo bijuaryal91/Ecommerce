@@ -57,7 +57,7 @@ include_once("./php/connection.php");
         </li>
         <?php
 
-        $sql = "SELECT SUM(total_amount) AS total_sum FROM orders";
+        $sql = "SELECT SUM(total_amount) AS total_sum FROM orders WHERE payment_status='paid'";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {

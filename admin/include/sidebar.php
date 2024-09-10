@@ -95,7 +95,7 @@ $connection = mysqli_connect("localhost", "root", "", "rk_db");
                         <?php if (mysqli_num_rows($resulti) > 0) {
                             while ($order = mysqli_fetch_assoc($resulti)) { ?>
                                 <li>
-                                    <a href="order.php?id=<?php echo $order['order_id']; ?>">
+                                    <a href="view-order.php?orderId=<?php echo $order['order_id']; ?>">
                                         New Order #<?php echo $order['order_id']; ?>
                                     </a>
                                 </li>

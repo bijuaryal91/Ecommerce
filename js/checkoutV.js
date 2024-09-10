@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
       name: form.querySelector("#name").value.trim(),
       address: form.querySelector("#cname").value.trim(),
       street: form.querySelector("#street").value.trim(),
-      apart: form.querySelector("#apart").value.trim(),
       town: form.querySelector("#town").value.trim(),
       phone: form.querySelector("#phone").value.trim(),
     };
@@ -66,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("payment_method", paymentMethod.value);
       formData.append("email", document.querySelector('#email').value);
       formData.append("discountedPrice",discountedPrice);
+      formData.append("apart",form.querySelector("#apart").value.trim())
 
       const xhr = new XMLHttpRequest();
       xhr.open("POST", "php/billing-update.php", true);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2024 at 06:34 PM
+-- Generation Time: Sep 10, 2024 at 08:57 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,7 +42,8 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `fname`, `lname`, `status`, `email`, `password`) VALUES
 (1, 'Biju', 'Aryal', 'active', 'bijuaryal17@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7'),
-(2, 'Reeya', 'Ramudamu', 'active', 'reeyaramudamu@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7');
+(2, 'Reeya', 'Ramudamu', 'active', 'reeyaramudamu@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7'),
+(3, 'Sailesh', 'Acharya', 'active', 'saileshacharya1229@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7');
 
 -- --------------------------------------------------------
 
@@ -63,8 +64,8 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`cart_id`, `user_id`, `discount`, `created_at`, `updated_at`) VALUES
-(1, 9, 0, '2024-09-05 14:38:58', '2024-09-06 11:42:45'),
-(2, 1, NULL, '2024-09-05 15:46:53', '2024-09-05 15:46:53');
+(1, 9, 0, '2024-09-05 14:38:58', '2024-09-10 10:08:46'),
+(2, 1, 0, '2024-09-05 15:46:53', '2024-09-10 18:46:39');
 
 -- --------------------------------------------------------
 
@@ -80,6 +81,16 @@ CREATE TABLE `cart_items` (
   `price` decimal(10,2) NOT NULL,
   `total_price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart_items`
+--
+
+INSERT INTO `cart_items` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `price`, `total_price`) VALUES
+(66, 1, 19, 1, 11104.00, 11104.00),
+(67, 1, 22, 1, 0.00, NULL),
+(68, 1, 15, 1, 0.00, NULL),
+(69, 1, 23, 1, 0.00, NULL);
 
 -- --------------------------------------------------------
 
@@ -123,7 +134,7 @@ CREATE TABLE `orders` (
   `user_id` int(11) DEFAULT NULL,
   `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` enum('pending','shipped','delivered','cancelled') DEFAULT 'pending',
-  `total_amount` decimal(10,2) NOT NULL,
+  `total_amount` decimal(10,0) NOT NULL,
   `shipping_address` text NOT NULL,
   `billing_address` text NOT NULL,
   `payment_method` varchar(50) DEFAULT NULL,
@@ -138,9 +149,12 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `order_date`, `status`, `total_amount`, `shipping_address`, `billing_address`, `payment_method`, `payment_status`, `tracking_number`, `created_at`, `updated_at`) VALUES
-(27, 9, '2024-09-06 11:37:05', 'pending', 25303.00, 'h', 'h', 'stripe', 'pending', 'TAYEH0FH18US', '2024-09-06 11:37:05', '2024-09-06 11:37:05'),
-(28, 9, '2024-09-06 11:42:45', 'pending', 64553.00, 'h', 'h', 'stripe', 'pending', 'WCU73MHCWCFE', '2024-09-06 11:42:45', '2024-09-06 11:42:45'),
-(29, 9, '2024-09-06 11:59:48', 'pending', 113753.00, 'h', 'h', 'stripe', 'pending', 'WPTQLQTLLPY1', '2024-09-06 11:59:48', '2024-09-06 11:59:48');
+(27, 9, '2024-09-06 11:37:05', 'pending', 25303, 'h', 'h', 'stripe', 'paid', 'TAYEH0FH18US', '2024-09-06 11:37:05', '2024-09-10 18:55:52'),
+(28, 9, '2024-09-06 11:42:45', 'pending', 64553, 'h', 'h', 'stripe', 'paid', 'WCU73MHCWCFE', '2024-09-06 11:42:45', '2024-09-10 18:55:56'),
+(29, 9, '2024-09-06 11:59:48', 'pending', 113753, 'h', 'h', 'stripe', 'paid', 'WPTQLQTLLPY1', '2024-09-06 11:59:48', '2024-09-10 18:56:00'),
+(30, 9, '2024-09-10 10:08:46', 'pending', 100186, 'h', 'h', 'stripe', 'paid', 'YQW5WJGVG71V', '2024-09-10 10:08:46', '2024-09-10 18:56:03'),
+(31, 1, '2024-09-10 18:46:39', 'pending', 25403, 'Hetauda - 07, Makwanpur', 'Hetauda - 07, Makwanpur', 'cod', 'pending', '8QCJHUXFH2VO', '2024-09-10 18:46:39', '2024-09-10 18:46:39'),
+(32, 1, '2024-09-10 18:50:59', 'pending', 41194, 'Hetauda - 07, Makwanpur', 'Hetauda - 07, Makwanpur', 'stripe', 'paid', '8S2ZD29K0TZ1', '2024-09-10 18:50:59', '2024-09-10 18:50:59');
 
 -- --------------------------------------------------------
 
@@ -167,7 +181,10 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`
 (30, 28, 22, 1, 16225.00, 16225.00),
 (31, 29, 10, 2, 50000.00, 100000.00),
 (32, 29, 19, 1, 11104.00, 11104.00),
-(33, 29, 21, 1, 2649.00, 2649.00);
+(33, 29, 21, 1, 2649.00, 2649.00),
+(34, 30, 17, 1, 100196.00, 100196.00),
+(35, 31, 18, 1, 25403.00, 25403.00),
+(36, 32, 16, 1, 41194.00, 41194.00);
 
 -- --------------------------------------------------------
 
@@ -181,7 +198,7 @@ CREATE TABLE `payments` (
   `payment_method` varchar(50) DEFAULT NULL,
   `payment_status` enum('paid','pending','failed') DEFAULT 'pending',
   `transaction_id` varchar(100) DEFAULT NULL,
-  `amount` decimal(10,2) NOT NULL,
+  `amount` decimal(10,0) NOT NULL,
   `payment_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -190,9 +207,11 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`payment_id`, `order_id`, `payment_method`, `payment_status`, `transaction_id`, `amount`, `payment_date`) VALUES
-(10, 27, 'stripe', 'failed', 'TXN-66dae9af6a05e3.61452456', 188.83, '2024-09-06 11:38:23'),
-(11, 28, 'stripe', 'paid', 'TXN-66daead0409f93.99332269', 64553.00, '2024-09-06 11:43:12'),
-(12, 29, 'stripe', 'paid', 'TXN-66daeed494d198.84277964', 113753.00, '2024-09-06 12:00:20');
+(10, 27, 'stripe', 'paid', 'TXN-66dae9af6a05e3.61452456', 189, '2024-09-06 11:38:23'),
+(11, 28, 'stripe', 'paid', 'TXN-66daead0409f93.99332269', 64553, '2024-09-06 11:43:12'),
+(12, 29, 'stripe', 'paid', 'TXN-66daeed494d198.84277964', 113753, '2024-09-06 12:00:20'),
+(13, 30, 'stripe', 'paid', 'TXN-66e01ace7c3f93.48423822', 100186, '2024-09-10 10:09:18'),
+(14, 32, 'stripe', 'paid', 'TXN-66e0953a5be367.20802920', 41194, '2024-09-10 18:51:38');
 
 -- --------------------------------------------------------
 
@@ -227,9 +246,9 @@ INSERT INTO `products` (`product_id`, `name`, `short_description`, `long_descrip
 (13, 'Trilogy Diamond Ring', 'Luxurious band', 'Elevate your elegance with our stunning Trilogy Diamond Ring, a timeless symbol of past, present, and future. This exquisite piece features three dazzling diamonds, meticulously set in a classic and elegant design.', 3, 102488, 'Diamond', 4.96, 'productImaged2128db560c0c490e273f5f74863_1725524844.jpeg', '1_1725524844.jpeg', 50, '2024-09-05 08:27:24', '2024-09-08 12:45:34'),
 (14, 'Six Diamond Ring', 'Beautiful Emerald Diamond Ring', 'Encircling the central emerald are sparkling round-cut diamonds, meticulously set to amplify the ring\'s overall brilliance. These diamonds create a stunning contrast with the emerald, enhancing its vivid color and adding a touch of glamour.', 3, 54942, 'Diamond, Emerald', 2.15, 'productImage1e03334179906baaa04f753d9a6f_1725524936.jpg', '1_1725524936.jpg,2_1725524936.jpg,3_1725524936.jpg', 50, '2024-09-05 08:28:56', '2024-09-08 12:45:34'),
 (15, 'Radiant Rose Sun Brooch', 'Versatile accessory for any outfit.', 'The brooch comes in an elegant gift box, making it an ideal present for birthdays, anniversaries, Mother\'s Day, or any other special occasion. Delight your loved ones with a gift that is both meaningful and beautiful.', 13, 8000, 'Diamond', 11.63, 'productImage2bd44bfb78a05e3906bc59b17ec0_1725524992.jpg', '1_1725524992.jpg', 50, '2024-09-05 08:29:52', '2024-09-08 12:45:34'),
-(16, 'Low weight Bangle', 'Low weight Bangle', 'What an amazingly handcrafted gold bangle made with love from our expert karigars in very low weight. Imaging wearing this in solid gold which cost you 4 times higher. This bangle can make you feel that right away.', 8, 41194, 'Gold', 2.58, 'productImage75e100b5d456891b421c9cf64b8c_1725525079.jpg', '1_1725525079.jpg', 50, '2024-09-05 08:31:19', '2024-09-08 12:45:34'),
-(17, 'Maeve Gold Earring', 'sleek and minimalist design', 'Perfect for both casual and formal occasions, these earrings effortlessly elevate your style with their understated charm and timeless allure.', 6, 100196, 'Gold', 6.92, 'productImagee82cc3574c68fb8e1e4ac1831306_1725525150.jpg', '1_1725525150.jpg', 50, '2024-09-05 08:32:30', '2024-09-08 12:45:34'),
-(18, 'Nikita Gold Tilahari', 'Touch of luxury', 'This exquisite piece of art embodies the perfect blend of traditional craftsmanship and contemporary design, making it an essential addition to any sophisticated wardrobe.', 2, 25403, 'Gold', 1.60, 'productImagea562bc2184f23af438f0381d323a_1725526176.jpg', '1_1725526176.jpg,2_1725526176.jpg', 50, '2024-09-05 08:49:36', '2024-09-08 12:45:34'),
+(16, 'Low weight Bangle', 'Low weight Bangle', 'What an amazingly handcrafted gold bangle made with love from our expert karigars in very low weight. Imaging wearing this in solid gold which cost you 4 times higher. This bangle can make you feel that right away.', 8, 41194, 'Gold', 2.58, 'productImage75e100b5d456891b421c9cf64b8c_1725525079.jpg', '1_1725525079.jpg', 49, '2024-09-05 08:31:19', '2024-09-10 18:50:59'),
+(17, 'Maeve Gold Earring', 'sleek and minimalist design', 'Perfect for both casual and formal occasions, these earrings effortlessly elevate your style with their understated charm and timeless allure.', 6, 100196, 'Gold', 6.92, 'productImagee82cc3574c68fb8e1e4ac1831306_1725525150.jpg', '1_1725525150.jpg', 49, '2024-09-05 08:32:30', '2024-09-10 10:08:46'),
+(18, 'Nikita Gold Tilahari', 'Touch of luxury', 'This exquisite piece of art embodies the perfect blend of traditional craftsmanship and contemporary design, making it an essential addition to any sophisticated wardrobe.', 2, 25403, 'Gold', 1.60, 'productImagea562bc2184f23af438f0381d323a_1725526176.jpg', '1_1725526176.jpg,2_1725526176.jpg', 49, '2024-09-05 08:49:36', '2024-09-10 18:46:39'),
 (19, 'Levi Gold Hairpin', 'touch of sophistication', 'The Levi hairpin is meticulously crafted from pure 24K gold, boasting a brilliant luster that captures the essence of opulence. Its design features intricate patterns and delicate engravings, showcasing the artisan\'s exceptional skill and attention to detail. The harmonious blend of classic and contemporary elements ensures that each hairpin is a unique work of art, making a statement of timeless beauty.', 14, 11104, 'Gold', 0.52, 'productImage8d21faa7b1c484d1b722c4561ccf_1725528260.jpg', '1_1725528260.jpg,2_1725528260.jpg,3_1725528260.jpg', 50, '2024-09-05 09:24:20', '2024-09-08 12:45:34'),
 (20, 'Neha Gold Mala', 'lustrous shine', 'The Neha Gold Mala is designed to be versatile, making it suitable for various occasions. Whether you\'re attending a wedding, a festive celebration, or a formal event, this mala adds a touch of sophistication to your attire. Its elegant design makes it a perfect match for traditional outfits like sarees and lehengas, as well as modern ensembles.', 2, 18893, 'Gold', 0.91, 'productImaged6f77682a0285f24c0d6e7f6e051_1725528368.jpeg', '1_1725528368.jpeg,2_1725528368.jpeg', 50, '2024-09-05 09:26:08', '2024-09-08 12:45:34'),
 (21, 'Silver Spoon', 'antibacterial properties', 'The silver spoon in the Pasni ceremony is more than just a utensil; it is a symbol of purity, health, and tradition. It represents the family\'s love, blessings, and hopes for the child\'s bright future. As you prepare for this significant celebration, choosing a beautiful and high-quality silver spoon can add a touch of elegance and meaning to the ritual, creating memories that will last a lifetime.', 15, 2649, 'Silver', 11.66, 'productImage90517676ca6e9535ea7860041c0d_1725528466.png', '1_1725528466.png,2_1725528466.png', 50, '2024-09-05 09:27:46', '2024-09-08 12:45:34'),
@@ -246,6 +265,7 @@ CREATE TABLE `redeemcode` (
   `code_Id` int(11) NOT NULL,
   `code` varchar(255) NOT NULL,
   `price` decimal(10,0) DEFAULT NULL,
+  `visibility` enum('public','private') DEFAULT 'public',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `expires_at` timestamp NULL DEFAULT NULL,
   `remaining_Usage` int(11) DEFAULT 0
@@ -255,11 +275,13 @@ CREATE TABLE `redeemcode` (
 -- Dumping data for table `redeemcode`
 --
 
-INSERT INTO `redeemcode` (`code_Id`, `code`, `price`, `created_at`, `expires_at`, `remaining_Usage`) VALUES
-(1, 'SAVE100', 100, '2024-09-04 13:55:48', '2024-09-26 10:48:21', 2),
-(2, 'SALE10000', 10000, '2024-09-04 14:26:01', '2024-09-11 10:45:43', 0),
-(3, 'REEYA50', 50, '2024-09-04 14:32:16', '2024-09-16 10:47:16', 5),
-(4, 'BIJU', 1000000, '2024-09-06 10:30:00', '2024-09-07 06:45:00', 476);
+INSERT INTO `redeemcode` (`code_Id`, `code`, `price`, `visibility`, `created_at`, `expires_at`, `remaining_Usage`) VALUES
+(1, 'SAVE100', 100, 'private', '2024-09-04 13:55:48', '2024-09-26 14:29:58', 2),
+(2, 'SALE10000', 10000, 'private', '2024-09-04 14:26:01', '2024-09-11 14:30:06', 50),
+(3, 'REEYA50', 50, 'public', '2024-09-04 14:32:16', '2024-09-16 10:47:16', 5),
+(4, 'BIJU', 1000000, 'public', '2024-09-06 10:30:00', '2024-09-07 06:45:00', 476),
+(5, 'REEYA', 10, 'public', '2024-09-09 17:37:19', '2024-09-24 17:36:55', 49),
+(6, 'HANUMANKIND', 50000, 'private', '2024-09-10 18:17:04', '2024-09-25 14:32:04', 19);
 
 -- --------------------------------------------------------
 
@@ -303,6 +325,7 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
+  `profile_pic` varchar(255) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `phone_number` varchar(15) DEFAULT NULL,
@@ -321,10 +344,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `phone_number`, `address`, `street`, `apartment`, `city`, `status`, `verification`, `verification_token`, `created_at`, `updated_at`) VALUES
-(1, 'Reeya', 'Ramudamu', 'reeyaramudamu@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7', '9821823397', NULL, NULL, NULL, NULL, 'active', 'verified', NULL, '2024-09-03 15:55:59', '2024-09-05 11:51:37'),
-(9, 'Biju', 'Aryal', 'bijuaryal17@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7', '9845405351', 'h', 'h', 'h', 'h', 'active', 'verified', NULL, '2024-09-05 09:50:55', '2024-09-05 19:38:38'),
-(14, 'Bijay', 'Aryal', 'bijayaryal60@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7', '9845405351', NULL, NULL, NULL, NULL, 'active', 'verified', NULL, '2024-09-08 09:39:33', '2024-09-08 13:29:03');
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `profile_pic`, `email`, `password`, `phone_number`, `address`, `street`, `apartment`, `city`, `status`, `verification`, `verification_token`, `created_at`, `updated_at`) VALUES
+(1, 'Reeya', 'Ramudamu', 'default.jpg', 'reeyaramudamu@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7', '9821823397', 'Hetauda - 07, Makwanpur', 'Kantirajpath', '', 'Hetauda', 'active', 'verified', NULL, '2024-09-03 15:55:59', '2024-09-10 18:50:59'),
+(9, 'Biju ', 'Aryal', 'profile_1725907422.png', 'bijuaryal17@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7', '9845405351', 'Hetauda - 07, Makwanpur', 'Kantirajpath', '', 'Hetauda', 'active', 'verified', NULL, '2024-09-05 09:50:55', '2024-09-10 11:10:10'),
+(14, 'Bijay', 'Aryal', 'default.jpg', 'bijayaryal60@gmail.com', '67910565b6a5a6fefbb514e8248ae0a7', '9845405351', NULL, NULL, NULL, NULL, 'active', 'verified', NULL, '2024-09-08 09:39:33', '2024-09-09 18:00:56');
 
 -- --------------------------------------------------------
 
@@ -471,7 +494,7 @@ ALTER TABLE `wishlist_items`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -483,7 +506,7 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -495,19 +518,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -519,7 +542,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `redeemcode`
 --
 ALTER TABLE `redeemcode`
-  MODIFY `code_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `code_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -549,7 +572,7 @@ ALTER TABLE `wishlists`
 -- AUTO_INCREMENT for table `wishlist_items`
 --
 ALTER TABLE `wishlist_items`
-  MODIFY `wishlist_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `wishlist_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables

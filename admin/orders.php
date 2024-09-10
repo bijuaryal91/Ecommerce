@@ -21,7 +21,7 @@ include_once('./php/connection.php');
         <?php
 
         // Query to fetch data from the 'categories' table
-        $sql = "SELECT * FROM categories";
+        $sql = "SELECT * FROM orders";
         $result = mysqli_query($conn, $sql);
         ?>
 
@@ -44,15 +44,19 @@ include_once('./php/connection.php');
                 if (mysqli_num_rows($result) > 0) {
                     // Loop through each row of data
                     while ($row = mysqli_fetch_assoc($result)) {
+
+                        $userId = $row['user_id'];
+                        $userSql = "SELECT * FROM users WHERE user_id='$userId'";
+                        $rowUser = mysqli_fetch_assoc(mysqli_query($conn,$userSql));
                         echo "<tr>";
-                        echo "<td>" . $row['category_id'] . "</td>";
-                        echo "<td>" . $row['category_name'] . "</td>";
-                        echo "<td>" . $row['category_name'] . "</td>";
-                        echo "<td>" . $row['description'] . "</td>";
-                        echo "<td>" . $row['description'] . "</td>";
-                        echo "<td>" . $row['description'] . "</td>";
+                        echo "<td>" . $row['order_id'] . "</td>";
+                        echo "<td>" . $rowUser['first_name'] ." ". $rowUser['last_name'] . "</td>";
+                        echo "<td>" . $row['total_amount'] . "</td>";
+                        echo "<td>" . $row['status'] . "</td>";
+                        echo "<td>" . $row['payment_method'] . "</td>";
+                        echo "<td>" . $row['order_date'] . "</td>";
                         echo "<td class='actions'>
-                         <a href='./php/view-order.php?orderId=" . $row['category_id'] . "'><i class='fa fa-eye edit'></i></a>
+                         <a href='./php/view-order.php?orderId=" . $row['order_id'] . "'><i class='fa fa-eye edit'></i></a>
                       </td>";
                         echo "</tr>";
                     }
@@ -111,6 +115,25 @@ include_once('./php/connection.php');
         }
     });
 </script>
-<?php
-include_once("./include/bottom.php");
-?>
+
+</div>
+
+<script src="./js/index.js"></script>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable({
+        responsive: true,
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        lengthChange: true
+    });
+});
+
+</script>
+</html>

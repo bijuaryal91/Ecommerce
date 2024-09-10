@@ -70,7 +70,7 @@ while ($cart_item = mysqli_fetch_assoc($cart_result)) {
 
     // Check if the requested quantity is available
     if ($quantity > $stock_quantity) {
-        echo "Low Stock: ".$product_name;
+        echo "Low Stock: " . $product_name;
         $stock_available = false; // Set flag to false
         break; // Exit the loop if stock is not available
     }
@@ -92,11 +92,22 @@ if ($stock_available) {
         $item_total = ($price * $quantity) - $discount;
         $total_amount += $item_total;
     }
-    $total_amount-=$discountlalaal;
+    $total_amount -= $discountlalaal;
+    $insert_order_sql="";
 
     // Insert order details into the orders table
-    $insert_order_sql = "INSERT INTO orders (user_id, total_amount, shipping_address, billing_address, payment_method, tracking_number) 
-                         VALUES ('$user_id', '$total_amount', '$address', '$address', '$payment_method', '$tracking_number')";
+    if($payment_method==="cod")
+    {
+        $insert_order_sql = "INSERT INTO orders (user_id, total_amount, shipping_address, billing_address, payment_method, tracking_number) 
+        VALUES ('$user_id', '$total_amount', '$address', '$address', '$payment_method', '$tracking_number')";
+
+    }
+    else
+    {
+        $insert_order_sql = "INSERT INTO orders (user_id, total_amount, shipping_address, billing_address, payment_method, tracking_number,payment_status) 
+        VALUES ('$user_id', '$total_amount', '$address', '$address', '$payment_method', '$tracking_number','paid')";
+
+    }
     $order_result = mysqli_query($conn, $insert_order_sql);
     $order_id = mysqli_insert_id($conn);  // Get the newly created order ID
 
@@ -132,7 +143,7 @@ if ($stock_available) {
         $_SESSION['emailO'] = $email;
         $_SESSION['tracking_number'] = $tracking_number;
         $_SESSION['paymentM'] = $payment_method;
-        $_SESSION['disountAmount']= $discountlalaal;
+        $_SESSION['disountAmount'] = $discountlalaal;
     } else {
         // For Stripe, do everything except insert payment details
         // $_SESSION['payment_details'] = [
@@ -144,11 +155,11 @@ if ($stock_available) {
         //     'tn' => $tracking_number
         // ];
         $_SESSION['orderId'] = $order_id;
-        $_SESSION['amount']=$total_amount;
+        $_SESSION['amount'] = $total_amount;
         $_SESSION['paymentM'] = $payment_method;
         $_SESSION['emailO'] = $email;
         $_SESSION['tracking_number'] = $tracking_number;
-        $_SESSION['disountAmount']= $discountlalaal;
+        $_SESSION['disountAmount'] = $discountlalaal;
     }
 
     // Redirect based on payment method
