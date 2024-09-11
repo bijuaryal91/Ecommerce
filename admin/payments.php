@@ -21,7 +21,7 @@ include_once('./php/connection.php');
         <?php
 
         // Query to fetch data from the 'categories' table
-        $sql = "SELECT * FROM payments";
+        $sql = "SELECT * FROM payments ORDER BY payment_date DESC";
         $result = mysqli_query($conn, $sql);
         ?>
 
@@ -59,7 +59,7 @@ include_once('./php/connection.php');
                         echo "<td>" . $row['order_id'] . "</td>";
                         echo "<td>" . $row['payment_status'] . "</td>";
                         echo "<td class='actions'>
-                         <a href='./php/view-order.php?orderId=" . $row['order_id'] . "'><i class='fa fa-eye edit'></i></a>
+                         <a href='./view-orders.php?orderId=" . $row['order_id'] . "'><i class='fa fa-eye edit'></i></a>
                       </td>";
                         echo "</tr>";
                     }

@@ -648,6 +648,60 @@ body {
 .notification-close-icon:hover {
   background: #efefef;
 }
+
+/* Process Order Page  */
+
+.processtable
+{
+  margin-bottom: 20px;
+}
+.processtable .heading
+{
+  font-size: 20px;
+  color: var(--dark);
+  font-weight: bold;
+  margin: 10px 0;
+}
+.processtable table{
+  text-align: center;
+}
+.process-status
+{
+  display: flex;
+  justify-content: center;
+}
+.process-status form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+.process-status select{
+  height: 40px;
+  background-color: white;
+  border: 1px solid var(--dark);
+  border-radius: 4px;
+  padding: 0 10px;
+  outline: none;
+  width: 100%;
+}
+.process-status button{
+  width: 200px;
+  background-color: var(--primary);
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+/* Process Order Page Ends */
+
+
+
 @media(max-width:500px)
 {
   .notification-wrapper

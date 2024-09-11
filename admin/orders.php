@@ -56,7 +56,7 @@ include_once('./php/connection.php');
                         echo "<td>" . $row['payment_method'] . "</td>";
                         echo "<td>" . $row['order_date'] . "</td>";
                         echo "<td class='actions'>
-                         <a href='./php/view-order.php?orderId=" . $row['order_id'] . "'><i class='fa fa-eye edit'></i></a>
+                         <a href='./view-orders.php?orderId=" . $row['order_id'] . "'><i class='fa fa-eye edit'></i></a>
                       </td>";
                         echo "</tr>";
                     }
