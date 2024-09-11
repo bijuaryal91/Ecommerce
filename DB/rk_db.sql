@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2024 at 08:57 PM
+-- Generation Time: Sep 11, 2024 at 04:21 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,7 +65,7 @@ CREATE TABLE `carts` (
 
 INSERT INTO `carts` (`cart_id`, `user_id`, `discount`, `created_at`, `updated_at`) VALUES
 (1, 9, 0, '2024-09-05 14:38:58', '2024-09-10 10:08:46'),
-(2, 1, 0, '2024-09-05 15:46:53', '2024-09-10 18:46:39');
+(2, 1, 0, '2024-09-05 15:46:53', '2024-09-11 08:18:06');
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` enum('pending','shipped','delivered','cancelled') DEFAULT 'pending',
+  `status` enum('pending','confirmed','delivered','cancelled','dispatched') DEFAULT 'pending',
   `total_amount` decimal(10,0) NOT NULL,
   `shipping_address` text NOT NULL,
   `billing_address` text NOT NULL,
@@ -149,12 +149,13 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `order_date`, `status`, `total_amount`, `shipping_address`, `billing_address`, `payment_method`, `payment_status`, `tracking_number`, `created_at`, `updated_at`) VALUES
-(27, 9, '2024-09-06 11:37:05', 'pending', 25303, 'h', 'h', 'stripe', 'paid', 'TAYEH0FH18US', '2024-09-06 11:37:05', '2024-09-10 18:55:52'),
-(28, 9, '2024-09-06 11:42:45', 'pending', 64553, 'h', 'h', 'stripe', 'paid', 'WCU73MHCWCFE', '2024-09-06 11:42:45', '2024-09-10 18:55:56'),
-(29, 9, '2024-09-06 11:59:48', 'pending', 113753, 'h', 'h', 'stripe', 'paid', 'WPTQLQTLLPY1', '2024-09-06 11:59:48', '2024-09-10 18:56:00'),
-(30, 9, '2024-09-10 10:08:46', 'pending', 100186, 'h', 'h', 'stripe', 'paid', 'YQW5WJGVG71V', '2024-09-10 10:08:46', '2024-09-10 18:56:03'),
-(31, 1, '2024-09-10 18:46:39', 'pending', 25403, 'Hetauda - 07, Makwanpur', 'Hetauda - 07, Makwanpur', 'cod', 'pending', '8QCJHUXFH2VO', '2024-09-10 18:46:39', '2024-09-10 18:46:39'),
-(32, 1, '2024-09-10 18:50:59', 'pending', 41194, 'Hetauda - 07, Makwanpur', 'Hetauda - 07, Makwanpur', 'stripe', 'paid', '8S2ZD29K0TZ1', '2024-09-10 18:50:59', '2024-09-10 18:50:59');
+(27, 9, '2024-09-06 11:37:05', 'delivered', 25303, 'h', 'h', 'stripe', 'paid', 'TAYEH0FH18US', '2024-09-06 11:37:05', '2024-09-11 14:15:29'),
+(28, 9, '2024-09-06 11:42:45', 'confirmed', 64553, 'h', 'h', 'stripe', 'paid', 'WCU73MHCWCFE', '2024-09-06 11:42:45', '2024-09-11 09:08:13'),
+(29, 9, '2024-09-06 11:59:48', 'confirmed', 113753, 'h', 'h', 'stripe', 'paid', 'WPTQLQTLLPY1', '2024-09-06 11:59:48', '2024-09-11 09:11:19'),
+(30, 9, '2024-09-10 10:08:46', 'confirmed', 100186, 'h', 'h', 'stripe', 'paid', 'YQW5WJGVG71V', '2024-09-10 10:08:46', '2024-09-11 09:11:30'),
+(31, 1, '2024-09-10 18:46:39', 'confirmed', 25403, 'Hetauda - 07, Makwanpur', 'Hetauda - 07, Makwanpur', 'cod', 'paid', '8QCJHUXFH2VO', '2024-09-10 18:46:39', '2024-09-11 14:14:29'),
+(32, 1, '2024-09-10 18:50:59', 'confirmed', 41194, 'Hetauda - 07, Makwanpur', 'Hetauda - 07, Makwanpur', 'stripe', 'paid', '8S2ZD29K0TZ1', '2024-09-10 18:50:59', '2024-09-11 14:14:53'),
+(33, 1, '2024-09-11 08:18:06', 'confirmed', 652788, 'Hetauda - 07, Makwanpur', 'Hetauda - 07, Makwanpur', 'stripe', 'paid', 'B4K6I61UQTY9', '2024-09-11 08:18:06', '2024-09-11 08:45:30');
 
 -- --------------------------------------------------------
 
@@ -167,8 +168,8 @@ CREATE TABLE `order_items` (
   `order_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `total_price` decimal(10,2) NOT NULL
+  `price` decimal(10,0) NOT NULL,
+  `total_price` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -176,15 +177,17 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `price`, `total_price`) VALUES
-(28, 27, 18, 1, 25403.00, 25403.00),
-(29, 28, 11, 1, 48428.00, 48428.00),
-(30, 28, 22, 1, 16225.00, 16225.00),
-(31, 29, 10, 2, 50000.00, 100000.00),
-(32, 29, 19, 1, 11104.00, 11104.00),
-(33, 29, 21, 1, 2649.00, 2649.00),
-(34, 30, 17, 1, 100196.00, 100196.00),
-(35, 31, 18, 1, 25403.00, 25403.00),
-(36, 32, 16, 1, 41194.00, 41194.00);
+(28, 27, 18, 1, 25403, 25403),
+(29, 28, 11, 1, 48428, 48428),
+(30, 28, 22, 1, 16225, 16225),
+(31, 29, 10, 2, 50000, 100000),
+(32, 29, 19, 1, 11104, 11104),
+(33, 29, 21, 1, 2649, 2649),
+(34, 30, 17, 1, 100196, 100196),
+(35, 31, 18, 1, 25403, 25403),
+(36, 32, 16, 1, 41194, 41194),
+(37, 33, 17, 6, 100196, 601176),
+(38, 33, 18, 4, 25403, 101612);
 
 -- --------------------------------------------------------
 
@@ -211,7 +214,9 @@ INSERT INTO `payments` (`payment_id`, `order_id`, `payment_method`, `payment_sta
 (11, 28, 'stripe', 'paid', 'TXN-66daead0409f93.99332269', 64553, '2024-09-06 11:43:12'),
 (12, 29, 'stripe', 'paid', 'TXN-66daeed494d198.84277964', 113753, '2024-09-06 12:00:20'),
 (13, 30, 'stripe', 'paid', 'TXN-66e01ace7c3f93.48423822', 100186, '2024-09-10 10:09:18'),
-(14, 32, 'stripe', 'paid', 'TXN-66e0953a5be367.20802920', 41194, '2024-09-10 18:51:38');
+(14, 32, 'stripe', 'paid', 'TXN-66e0953a5be367.20802920', 41194, '2024-09-10 18:51:38'),
+(15, 33, 'stripe', 'paid', 'TXN-66e15264d90e34.50584248', 652788, '2024-09-11 08:18:44'),
+(16, 31, 'cod', 'paid', 'TXN-66e15d94c789d8.97755935', 25403, '2024-09-11 05:21:28');
 
 -- --------------------------------------------------------
 
@@ -247,8 +252,8 @@ INSERT INTO `products` (`product_id`, `name`, `short_description`, `long_descrip
 (14, 'Six Diamond Ring', 'Beautiful Emerald Diamond Ring', 'Encircling the central emerald are sparkling round-cut diamonds, meticulously set to amplify the ring\'s overall brilliance. These diamonds create a stunning contrast with the emerald, enhancing its vivid color and adding a touch of glamour.', 3, 54942, 'Diamond, Emerald', 2.15, 'productImage1e03334179906baaa04f753d9a6f_1725524936.jpg', '1_1725524936.jpg,2_1725524936.jpg,3_1725524936.jpg', 50, '2024-09-05 08:28:56', '2024-09-08 12:45:34'),
 (15, 'Radiant Rose Sun Brooch', 'Versatile accessory for any outfit.', 'The brooch comes in an elegant gift box, making it an ideal present for birthdays, anniversaries, Mother\'s Day, or any other special occasion. Delight your loved ones with a gift that is both meaningful and beautiful.', 13, 8000, 'Diamond', 11.63, 'productImage2bd44bfb78a05e3906bc59b17ec0_1725524992.jpg', '1_1725524992.jpg', 50, '2024-09-05 08:29:52', '2024-09-08 12:45:34'),
 (16, 'Low weight Bangle', 'Low weight Bangle', 'What an amazingly handcrafted gold bangle made with love from our expert karigars in very low weight. Imaging wearing this in solid gold which cost you 4 times higher. This bangle can make you feel that right away.', 8, 41194, 'Gold', 2.58, 'productImage75e100b5d456891b421c9cf64b8c_1725525079.jpg', '1_1725525079.jpg', 49, '2024-09-05 08:31:19', '2024-09-10 18:50:59'),
-(17, 'Maeve Gold Earring', 'sleek and minimalist design', 'Perfect for both casual and formal occasions, these earrings effortlessly elevate your style with their understated charm and timeless allure.', 6, 100196, 'Gold', 6.92, 'productImagee82cc3574c68fb8e1e4ac1831306_1725525150.jpg', '1_1725525150.jpg', 49, '2024-09-05 08:32:30', '2024-09-10 10:08:46'),
-(18, 'Nikita Gold Tilahari', 'Touch of luxury', 'This exquisite piece of art embodies the perfect blend of traditional craftsmanship and contemporary design, making it an essential addition to any sophisticated wardrobe.', 2, 25403, 'Gold', 1.60, 'productImagea562bc2184f23af438f0381d323a_1725526176.jpg', '1_1725526176.jpg,2_1725526176.jpg', 49, '2024-09-05 08:49:36', '2024-09-10 18:46:39'),
+(17, 'Maeve Gold Earring', 'sleek and minimalist design', 'Perfect for both casual and formal occasions, these earrings effortlessly elevate your style with their understated charm and timeless allure.', 6, 100196, 'Gold', 6.92, 'productImagee82cc3574c68fb8e1e4ac1831306_1725525150.jpg', '1_1725525150.jpg', 43, '2024-09-05 08:32:30', '2024-09-11 08:18:06'),
+(18, 'Nikita Gold Tilahari', 'Touch of luxury', 'This exquisite piece of art embodies the perfect blend of traditional craftsmanship and contemporary design, making it an essential addition to any sophisticated wardrobe.', 2, 25403, 'Gold', 1.60, 'productImagea562bc2184f23af438f0381d323a_1725526176.jpg', '1_1725526176.jpg,2_1725526176.jpg', 45, '2024-09-05 08:49:36', '2024-09-11 08:18:06'),
 (19, 'Levi Gold Hairpin', 'touch of sophistication', 'The Levi hairpin is meticulously crafted from pure 24K gold, boasting a brilliant luster that captures the essence of opulence. Its design features intricate patterns and delicate engravings, showcasing the artisan\'s exceptional skill and attention to detail. The harmonious blend of classic and contemporary elements ensures that each hairpin is a unique work of art, making a statement of timeless beauty.', 14, 11104, 'Gold', 0.52, 'productImage8d21faa7b1c484d1b722c4561ccf_1725528260.jpg', '1_1725528260.jpg,2_1725528260.jpg,3_1725528260.jpg', 50, '2024-09-05 09:24:20', '2024-09-08 12:45:34'),
 (20, 'Neha Gold Mala', 'lustrous shine', 'The Neha Gold Mala is designed to be versatile, making it suitable for various occasions. Whether you\'re attending a wedding, a festive celebration, or a formal event, this mala adds a touch of sophistication to your attire. Its elegant design makes it a perfect match for traditional outfits like sarees and lehengas, as well as modern ensembles.', 2, 18893, 'Gold', 0.91, 'productImaged6f77682a0285f24c0d6e7f6e051_1725528368.jpeg', '1_1725528368.jpeg,2_1725528368.jpeg', 50, '2024-09-05 09:26:08', '2024-09-08 12:45:34'),
 (21, 'Silver Spoon', 'antibacterial properties', 'The silver spoon in the Pasni ceremony is more than just a utensil; it is a symbol of purity, health, and tradition. It represents the family\'s love, blessings, and hopes for the child\'s bright future. As you prepare for this significant celebration, choosing a beautiful and high-quality silver spoon can add a touch of elegance and meaning to the ritual, creating memories that will last a lifetime.', 15, 2649, 'Silver', 11.66, 'productImage90517676ca6e9535ea7860041c0d_1725528466.png', '1_1725528466.png,2_1725528466.png', 50, '2024-09-05 09:27:46', '2024-09-08 12:45:34'),
@@ -281,7 +286,7 @@ INSERT INTO `redeemcode` (`code_Id`, `code`, `price`, `visibility`, `created_at`
 (3, 'REEYA50', 50, 'public', '2024-09-04 14:32:16', '2024-09-16 10:47:16', 5),
 (4, 'BIJU', 1000000, 'public', '2024-09-06 10:30:00', '2024-09-07 06:45:00', 476),
 (5, 'REEYA', 10, 'public', '2024-09-09 17:37:19', '2024-09-24 17:36:55', 49),
-(6, 'HANUMANKIND', 50000, 'private', '2024-09-10 18:17:04', '2024-09-25 14:32:04', 19);
+(6, 'HANUMANKIND', 50000, 'private', '2024-09-10 18:17:04', '2024-09-25 14:32:04', 18);
 
 -- --------------------------------------------------------
 
@@ -296,23 +301,6 @@ CREATE TABLE `reviews` (
   `rating` int(11) DEFAULT NULL CHECK (`rating` >= 1 and `rating` <= 5),
   `comment` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `shipping`
---
-
-CREATE TABLE `shipping` (
-  `shipping_id` int(11) NOT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `shipping_method` varchar(100) DEFAULT NULL,
-  `shipping_cost` decimal(10,2) NOT NULL,
-  `tracking_number` varchar(100) DEFAULT NULL,
-  `shipping_status` enum('pending','shipped','delivered') DEFAULT 'pending',
-  `shipped_date` timestamp NULL DEFAULT NULL,
-  `estimated_delivery_date` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -458,13 +446,6 @@ ALTER TABLE `reviews`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `shipping`
---
-ALTER TABLE `shipping`
-  ADD PRIMARY KEY (`shipping_id`),
-  ADD KEY `order_id` (`order_id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -506,7 +487,7 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -518,19 +499,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -551,12 +532,6 @@ ALTER TABLE `reviews`
   MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `shipping`
---
-ALTER TABLE `shipping`
-  MODIFY `shipping_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -572,7 +547,7 @@ ALTER TABLE `wishlists`
 -- AUTO_INCREMENT for table `wishlist_items`
 --
 ALTER TABLE `wishlist_items`
-  MODIFY `wishlist_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `wishlist_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables
@@ -622,12 +597,6 @@ ALTER TABLE `products`
 ALTER TABLE `reviews`
   ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-
---
--- Constraints for table `shipping`
---
-ALTER TABLE `shipping`
-  ADD CONSTRAINT `shipping_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`);
 
 --
 -- Constraints for table `wishlists`

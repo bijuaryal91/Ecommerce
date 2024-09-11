@@ -9,7 +9,7 @@ include_once("./php/connection.php");
         <div class="left">
             <h1>Dashboard</h1>
         </div>
-        <a href="#" class="report">
+        <a href="#" class="report" onclick="printData()">
             <i class='bx bx-printer'></i>
             <span>Print Report</span>
         </a>
@@ -79,11 +79,75 @@ include_once("./php/connection.php");
 
     </ul>
     <!-- End of Insights -->
+    <?php
 
+    // Query to fetch data from the 'categories' table
+    $sql = "SELECT * FROM orders WHERE status NOT IN ('delivered', 'cancelled', 'pending')";
 
+    $result = mysqli_query($conn, $sql);
+    ?>
+    <div class="container">
+        <div class="heading" style="font-size: 20px; font-weight:bold;margin:20px 20px 20px 0;">These orders require further processing</div>
+        <table id="example" class="display responsive nowrap" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Customer Name</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Method</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Check if there are any records in the result
+                if (mysqli_num_rows($result) > 0) {
+                    // Loop through each row of data
+                    while ($row = mysqli_fetch_assoc($result)) {
+
+                        $userId = $row['user_id'];
+                        $userSql = "SELECT * FROM users WHERE user_id='$userId'";
+                        $rowUser = mysqli_fetch_assoc(mysqli_query($conn, $userSql));
+                        echo "<tr data-id=" . $row['order_id'] . " class='clickable-row'>";
+                        echo "<td>" . $row['order_id'] . "</td>";
+                        echo "<td>" . $rowUser['first_name'] . " " . $rowUser['last_name'] . "</td>";
+                        echo "<td>" . $row['total_amount'] . "</td>";
+                        echo "<td>" . $row['status'] . "</td>";
+                        echo "<td>" . $row['payment_method'] . "</td>";
+                        echo "<td>" . $row['order_date'] . "</td>";
+
+                        echo "</tr>";
+                    }
+                } else {
+                    // If no records are found, display a message
+                    echo "<tr><td colspan='7'>No categories found</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
 </main>
 
 <?php
 include_once("./include/bottom.php");
 ?>
+<script>
+    $('.clickable-row').on('click', function() {
+        var orderId = $(this).data('id'); // Get the order ID from the data attribute
+        window.location.href = 'view-orders.php?orderId=' + orderId; // Redirect to the view-order page
+    });
+</script>
+<script>
+    function printData() {
+        var containerContent = document.querySelector('main').outerHTML;
+        var printWindow = window.open('', '', 'height=500,width=800');
+        printWindow.document.write('<html><head><title>Print Container</title>');
+        printWindow.document.write('</head><body >');
+        printWindow.document.write(containerContent);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+</script>
