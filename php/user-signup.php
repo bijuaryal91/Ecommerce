@@ -90,7 +90,7 @@ if (mysqli_num_rows($result) > 0) {
                 
                 <h2>Hello $fname,</h2>
                 <p>Thank you for signing up! Please click the button below to verify your email address:</p>
-                <a href='$verification_link' class='button'>Verify Email Address</a>
+                <a href='$verification_link' class='button' style='color:white'>Verify Email Address</a>
                 <p class='footer'>If you did not create an account, no further action is required.</p>
             </div>
         </body>

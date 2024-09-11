@@ -14,8 +14,8 @@
     <div class="customer-care footer-details">
         <h2>CUSTOMER CARE</h2>
         <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Refund Policy</a></li>
+            <li><a href="privacy-policy.php">Privacy Policy</a></li>
+            <li><a href="refund-policy.php">Refund Policy</a></li>
             <li><a href="contact.php">Contact Us</a></li>
         </ul>
     </div>
