@@ -37,16 +37,44 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
             <div class="product-view-details">
                 <div class="heading"><?php echo $row['name'] ?></div>
 
+                <?php
+                $product_id = $row['product_id'];
+
+                $ratingQuery = "SELECT rating FROM reviews WHERE product_id = '$product_id'";
+                $ratingResult = mysqli_query($conn, $ratingQuery);
+
+                $ratings = [];
+                while ($ratingRow = mysqli_fetch_assoc($ratingResult)) {
+                    $ratings[] = $ratingRow['rating'];
+                }
+
+                // Calculate total reviews and average rating
+                $total_reviews = count($ratings);
+                $average_rating = $total_reviews > 0 ? array_sum($ratings) / $total_reviews : 0;
+
+                // Round the average rating to the nearest half
+                $rounded_rating = round($average_rating * 2) / 2;
+                ?>
                 <div class="reviews">
                     <div class="stars">
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bx-star'></i>
+                        <?php
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($rounded_rating >= $i) {
+                                // Full star
+                                echo "<i class='bx bxs-star'></i>";
+                            } elseif ($rounded_rating >= $i - 0.5) {
+                                // Half star
+                                echo "<i class='bx bxs-star-half'></i>";
+                            } else {
+                                // Empty star
+                                echo "<i class='bx bx-star'></i>";
+                            }
+                        }
+                        ?>
                     </div>
-                    <div class="total-reviews">(82)</div>
+                    <div class="total-reviews">(<?= $total_reviews ?>)</div>
                 </div>
+
                 <div class="price">RS. <?php echo $row['price'] ?></div>
                 <div class="short-description"><?php echo $row['short_description'] ?></div>
             </div>
@@ -99,7 +127,7 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                     <?php
                                         }
                     ?>
-                   
+
 
                     <!-- <button class="btn normal" class="add-to-cart">Buy Now</button> -->
                     <button class="btn small-button" class="wishlists" onclick="window.location.href='php/add-wishlist.php?productId=<?php echo $row['product_id'] ?>'"><i class='bx bx-heart'></i></button>

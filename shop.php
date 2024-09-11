@@ -51,9 +51,11 @@ $result = mysqli_query($conn, $sql);
             <div class="filter-rating">
                 <h3>Rating</h3>
                 <ul>
+                    <li><input type="radio" name="rating" class="rating-filter" value="5"> 5 stars</li>
                     <li><input type="radio" name="rating" class="rating-filter" value="4"> 4 stars & up</li>
                     <li><input type="radio" name="rating" class="rating-filter" value="3"> 3 stars & up</li>
                     <li><input type="radio" name="rating" class="rating-filter" value="2"> 2 stars & up</li>
+                    <li><input type="radio" name="rating" class="rating-filter" value=""> All</li>
                 </ul>
             </div>
         </div>
@@ -62,8 +64,8 @@ $result = mysqli_query($conn, $sql);
             <div class="product-list">
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $sqlC = "SELECT * FROM categories WHERE category_id=".$row['category_id'];
-                    $rowC = mysqli_fetch_assoc(mysqli_query($conn,$sqlC));
+                    $sqlC = "SELECT * FROM categories WHERE category_id=" . $row['category_id'];
+                    $rowC = mysqli_fetch_assoc(mysqli_query($conn, $sqlC));
                 ?>
                     <div class="product-card" onclick="window.location.href='product-details.php?productId=<?php echo $row['product_id'] ?>'" data-category="<?php echo $rowC['category_name'] ?>">
                         <div class="product-image">
@@ -73,15 +75,42 @@ $result = mysqli_query($conn, $sql);
                         <div class="product-card-details">
                             <h1><?php echo $row['name']; ?></h1>
                             <div class="price">Rs. <?php echo $row['price']; ?></div>
+                            <?php
+                            $product_id = $row['product_id'];
+
+                            $ratingQuery = "SELECT rating FROM reviews WHERE product_id = '$product_id'";
+                            $ratingResult = mysqli_query($conn, $ratingQuery);
+
+                            $ratings = [];
+                            while ($ratingRow = mysqli_fetch_assoc($ratingResult)) {
+                                $ratings[] = $ratingRow['rating'];
+                            }
+
+                            // Calculate total reviews and average rating
+                            $total_reviews = count($ratings);
+                            $average_rating = $total_reviews > 0 ? array_sum($ratings) / $total_reviews : 0;
+
+                            // Round the average rating to the nearest half
+                            $rounded_rating = round($average_rating * 2) / 2;
+                            ?>
                             <div class="rating">
                                 <ul>
-                                    <li><i class='bx bxs-star checked'></i></li>
-                                    <li><i class='bx bxs-star checked'></i></li>
-                                    <li><i class='bx bxs-star checked'></i></li>
-                                    <li><i class='bx bxs-star checked'></i></li>
-                                    <li><i class='bx bx-star'></i></li>
+                                    <?php
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($rounded_rating >= $i) {
+                                            // Full star
+                                            echo "<li><i class='bx bxs-star checked'></i></li>";
+                                        } elseif ($rounded_rating >= $i - 0.5) {
+                                            // Half star (optional, depending on your icon set)
+                                            echo "<li><i class='bx bxs-star-half checked'></i></li>";
+                                        } else {
+                                            // Empty star
+                                            echo "<li><i class='bx bx-star'></i></li>";
+                                        }
+                                    }
+                                    ?>
                                 </ul>
-                                <span>(88)</span>
+                                <span>(<?= $total_reviews ?>)</span>
                             </div>
                             <?php
                             if ($row['stock_quantity'] < 1) {

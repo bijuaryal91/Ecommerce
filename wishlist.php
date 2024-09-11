@@ -46,16 +46,44 @@ $userId = $_SESSION['user_id'];
                             <h1><?php echo $row1['name']; ?></h1>
 
                             <div class="price">Rs. <?php echo $row1['price']; ?></div>
+                            <?php
+                            $product_id = $row1['product_id'];
+
+                            $ratingQuery = "SELECT rating FROM reviews WHERE product_id = '$product_id'";
+                            $ratingResult = mysqli_query($conn, $ratingQuery);
+
+                            $ratings = [];
+                            while ($ratingRow = mysqli_fetch_assoc($ratingResult)) {
+                                $ratings[] = $ratingRow['rating'];
+                            }
+
+                            // Calculate total reviews and average rating
+                            $total_reviews = count($ratings);
+                            $average_rating = $total_reviews > 0 ? array_sum($ratings) / $total_reviews : 0;
+
+                            // Round the average rating to the nearest half
+                            $rounded_rating = round($average_rating * 2) / 2;
+                            ?>
                             <div class="rating">
                                 <ul>
-                                    <li><i class='bx bxs-star checked'></i></li>
-                                    <li><i class='bx bxs-star checked'></i></li>
-                                    <li><i class='bx bxs-star checked'></i></li>
-                                    <li><i class='bx bxs-star checked'></i></li>
-                                    <li><i class='bx bx-star'></i></li>
+                                    <?php
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($rounded_rating >= $i) {
+                                            // Full star
+                                            echo "<li><i class='bx bxs-star checked'></i></li>";
+                                        } elseif ($rounded_rating >= $i - 0.5) {
+                                            // Half star (optional, depending on your icon set)
+                                            echo "<li><i class='bx bxs-star-half checked'></i></li>";
+                                        } else {
+                                            // Empty star
+                                            echo "<li><i class='bx bx-star'></i></li>";
+                                        }
+                                    }
+                                    ?>
                                 </ul>
-                                <span>(88)</span>
+                                <span>(<?= $total_reviews ?>)</span>
                             </div>
+
                             <?php
                             if ($row1['stock_quantity'] < 1) {
                             ?>
@@ -105,16 +133,43 @@ $userId = $_SESSION['user_id'];
                     <h1><?php echo $row['name'] ?></h1>
 
                     <div class="price">Rs. <?php echo $row['price'] ?></div>
-                    <div class="rating">
-                        <ul>
-                            <li><i class='bx bxs-star checked'></i></li>
-                            <li><i class='bx bxs-star checked'></i></li>
-                            <li><i class='bx bxs-star checked'></i></li>
-                            <li><i class='bx bxs-star checked'></i></li>
-                            <li><i class='bx bx-star'></i></li>
-                        </ul>
-                        <span>(88)</span>
-                    </div>
+                    <?php
+                            $product_id = $row['product_id'];
+
+                            $ratingQuery = "SELECT rating FROM reviews WHERE product_id = '$product_id'";
+                            $ratingResult = mysqli_query($conn, $ratingQuery);
+
+                            $ratings = [];
+                            while ($ratingRow = mysqli_fetch_assoc($ratingResult)) {
+                                $ratings[] = $ratingRow['rating'];
+                            }
+
+                            // Calculate total reviews and average rating
+                            $total_reviews = count($ratings);
+                            $average_rating = $total_reviews > 0 ? array_sum($ratings) / $total_reviews : 0;
+
+                            // Round the average rating to the nearest half
+                            $rounded_rating = round($average_rating * 2) / 2;
+                            ?>
+                            <div class="rating">
+                                <ul>
+                                    <?php
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($rounded_rating >= $i) {
+                                            // Full star
+                                            echo "<li><i class='bx bxs-star checked'></i></li>";
+                                        } elseif ($rounded_rating >= $i - 0.5) {
+                                            // Half star (optional, depending on your icon set)
+                                            echo "<li><i class='bx bxs-star-half checked'></i></li>";
+                                        } else {
+                                            // Empty star
+                                            echo "<li><i class='bx bx-star'></i></li>";
+                                        }
+                                    }
+                                    ?>
+                                </ul>
+                                <span>(<?= $total_reviews ?>)</span>
+                            </div>
                     <?php
                     if ($row['stock_quantity'] < 1) {
                     ?>
