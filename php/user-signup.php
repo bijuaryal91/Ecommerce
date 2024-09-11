@@ -51,14 +51,8 @@ if (mysqli_num_rows($result) > 0) {
                     border-radius: 5px;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                 }
-                .header {
-                    text-align: center;
-                    padding: 10px 0;
-                }
-                .header img {
-                    max-width: 100%;
-                    height: auto;
-                }
+              
+                
                 h2 {
                     color: #333;
                 }
@@ -93,9 +87,7 @@ if (mysqli_num_rows($result) > 0) {
         </head>
         <body>
             <div class='container'>
-                <div class='header'>
-                    <img src='https://bijuaryal91.github.io/QRGenerator/logo.png' alt='Logo' height='200' width='200' />
-                </div>
+                
                 <h2>Hello $fname,</h2>
                 <p>Thank you for signing up! Please click the button below to verify your email address:</p>
                 <a href='$verification_link' class='button'>Verify Email Address</a>
