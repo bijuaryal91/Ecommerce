@@ -44,6 +44,7 @@ $connection = mysqli_connect("localhost", "root", "", "rk_db");
         </a>
         <ul class="side-menu">
             <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="generate-report.php"><i class='bx bx-credit-card-front'></i>Generate Reports</a></li>
             <li><a href="products.php"><i class='bx bx-store-alt'></i>Products</a></li>
             <li><a href="add-product.php"><i class='bx bxl-product-hunt'></i>Add Products</a></li>
             <li><a href="category.php"><i class='bx bx-category'></i>Category</a></li>
@@ -53,7 +54,7 @@ $connection = mysqli_connect("localhost", "root", "", "rk_db");
             <li><a href="payments.php"><i class='bx bxl-paypal'></i>Payments</a></li>
             <li><a href="redeem-code.php"><i class='bx bxs-coupon'></i>Redeem Code</a></li>
         </ul>
-        <ul class="side-menu">
+        <ul class="side-menu logout-menu">
             <li>
                 <a href="./include/logout.php" class="logout">
                     <i class='bx bx-log-out-circle'></i>

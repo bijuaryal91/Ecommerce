@@ -16,20 +16,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['quantity'])) {
     if (mysqli_num_rows($cart_result) > 0) {
         $cart = mysqli_fetch_assoc($cart_result);
         $cart_id = $cart['cart_id'];
+        $errors = [];
 
         foreach ($_POST['quantity'] as $product_id => $quantity) {
             $quantity = intval($quantity);
 
-            // Retrieve the price for the current product
-            $price_sql = "SELECT price FROM products WHERE product_id = '$product_id'";
-            $price_result = mysqli_query($conn, $price_sql);
+            // Retrieve the price and available stock for the current product
+            $product_sql = "SELECT name,price, stock_quantity FROM products WHERE product_id = '$product_id'";
+            $product_result = mysqli_query($conn, $product_sql);
 
-            if (mysqli_num_rows($price_result) > 0) {
-                $product = mysqli_fetch_assoc($price_result);
+            if (mysqli_num_rows($product_result) > 0) {
+                $product = mysqli_fetch_assoc($product_result);
                 $price = $product['price'];
+                $available_stock = $product['stock_quantity'];
+                $pName = $product['name'];
                 $total_price = $price * $quantity; // Calculate total price
 
-                if ($quantity > 0) {
+                if ($quantity > $available_stock) {
+                    // Add to errors array if requested quantity exceeds available stock
+                    $errors[] = "Requested quantity for product $pName exceeds available stock of $available_stock.";
+                } elseif ($quantity > 0) {
                     // Update the cart item quantity and total price
                     $update_sql = "UPDATE cart_items SET quantity = '$quantity', price = '$price', total_price = '$total_price' WHERE cart_id = '$cart_id' AND product_id = '$product_id'";
                     mysqli_query($conn, $update_sql);
@@ -40,13 +46,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['quantity'])) {
                 }
             } else {
                 // Handle case where the product is not found
-                echo "Product with ID $product_id not found.";
+                $errors[] = "Product with ID $product_id not found.";
             }
         }
-    }
 
-    mysqli_close($conn);
-    header("location: ../cart.php");
+        // Close the connection
+        mysqli_close($conn);
+
+        // Check if there are any errors
+        if (!empty($errors)) {
+            echo "<script>alert('" . implode("\\n", $errors) . "'); window.location.href='../cart.php';</script>";
+            exit();
+        }
+
+        // Redirect to the cart page if no errors
+        header("location: ../cart.php");
+    }
 } else {
     echo "Invalid request!";
 }

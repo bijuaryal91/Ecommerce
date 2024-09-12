@@ -140,12 +140,12 @@ $orderId = $_GET['orderId'];
             ?>
             <form method="post" action="./php/process-order.php">
                 <?php
-                if ($row['payment_method'] === "cod" && $row['payment_status'] === "pending") {
+                if ($row['payment_method'] === "cod" && $row['payment_status'] === "pending" && $status === "dispatched") {
                 ?>
                     <select name="paymentstatus" id="status">
                         <option value="pending">Payment Status - Pending</option>
                         <option value="paid">Payment Status - Paid</option>
-                       </select>
+                    </select>
                 <?php
                 }
                 ?>
