@@ -169,122 +169,113 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 
 </div>
 <div class="product-reviews">
+    <?php
+    $sql = "SELECT * FROM reviews WHERE product_id=" . $row['product_id'];
+    $reviewResult = mysqli_query($conn, $sql);
+    ?>
     <div class="review-heading">Reviews</div>
     <div class="review-details">
         <div class="reviews">
-            <div class="comment-part">
-                <div class="user-img-part">
-                    <div class="user-img">
-                        <img src="https://via.placeholder.com/150">
-                    </div>
-                    <div class="user-text">
-                        <h4>8 days ago</h4>
-                        <p>Tom kok</p>
 
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-                <div class="comment">
-                    <div class="comment-ratings">
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star-half"></i>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco.</p>
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="comment-part">
-                <div class="user-img-part">
-                    <div class="user-img">
-                        <img src="https://via.placeholder.com/150">
-                    </div>
-                    <div class="user-text">
-                        <h4>30 days ago</h4>
-                        <p>Win Rool</p>
+            <?php
+            if (mysqli_num_rows($reviewResult) > 0) {
+                while ($reviewRow = mysqli_fetch_assoc($reviewResult)) {
+                    $userDetails = $reviewRow['user_id'];
+                    $userSql = "SELECT * FROM users WHERE user_id='$userDetails'";
+                    $userRow = mysqli_fetch_assoc(mysqli_query($conn, $userSql));
+                    $reviewDate = new DateTime($reviewRow['created_at']);
+                    $today = new DateTime();
+                    $interval = $today->diff($reviewDate);
+            ?>
+                    <div class="comment-part">
+                        <div class="user-img-part">
+                            <div class="user-img">
+                                <img src="./users/<?php echo $userRow['profile_pic'] ?>">
+                            </div>
+                            <div class="user-text">
+                                <h4><?php echo $interval->days ?> days ago</h4>
+                                <p><?php echo $userRow['first_name'] . ' ' . $userRow['last_name'] ?></p>
 
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-                <div class="comment">
-                    <div class="comment-ratings">
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star-half"></i>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                        <div class="comment">
+                            <div class="comment-ratings">
+                                <?php
+                                $maxStars = 5; // Maximum number of stars
+                                $i = $reviewRow['rating']; // Rating value
 
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco.</p>
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="comment-part">
-                <div class="user-img-part">
-                    <div class="user-img">
-                        <img src="https://via.placeholder.com/150
+                                // Loop for full stars
+                                for ($j = 1; $j <= $i; $j++) {
+                                ?>
+                                    <i aria-hidden="true" class="bx bxs-star"></i> <!-- Full star icon -->
+                                <?php
+                                }
 
-">
-                    </div>
-                    <div class="user-text">
-                        <h4>1 days ago</h4>
-                        <p>Jui Choal</p>
+                                // Loop for empty stars
+                                for ($j = $i + 1; $j <= $maxStars; $j++) {
+                                ?>
+                                    <i aria-hidden="true" class="bx bx-star"></i> <!-- Empty star icon -->
+                                <?php
+                                }
+                                ?>
 
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-                <div class="comment">
-                    <div class="comment-ratings">
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star-half"></i>
 
+                            </div>
+                            <p><?php echo $reviewRow['comment'] ?></p>
+                        </div>
+                        <div style="clear: both;"></div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco.</p>
+                <?php
+                }
+            } else {
+                ?>
+                <div class="comment-part">
+                    No reviews available for this product
                 </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="comment-part">
-                <div class="user-img-part">
-                    <div class="user-img">
-                        <img src="https://via.placeholder.com/150">
-                    </div>
-                    <div class="user-text">
-                        <h4>24 days ago</h4>
-                        <p>Jack Mins</p>
-
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-                <div class="comment">
-                    <div class="comment-ratings">
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star"></i>
-                        <i aria-hidden="true" class="bx bxs-star-half"></i>
-
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco.</p>
-                </div>
-                <div style="clear: both;"></div>
-            </div>
+            <?php
+            }
+            ?>
 
         </div>
     </div>
 </div>
+
+<div class="review-wrapper">
+    <h3>Write a review</h3>
+    <form action="./php/submit-review.php" method="post">
+        <div class="stars-container">
+            <input type="number" name="rating" hidden>
+            <input type="hidden" name="uid" value="<?php echo $_SESSION['user_id'] ?>">
+            <input type="hidden" name="pid" value="<?php echo $_GET['productId'] ?>">
+            <i class='bx bx-star single-star' style="--i: 0;"></i>
+            <i class='bx bx-star single-star' style="--i: 1;"></i>
+            <i class='bx bx-star single-star' style="--i: 2;"></i>
+            <i class='bx bx-star single-star' style="--i: 3;"></i>
+            <i class='bx bx-star single-star' style="--i: 4;"></i>
+        </div>
+        <textarea class="opinion" name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+        <div class="error-message hidden    " style="text-align: left;">h</div>
+        <div class="button-group">
+            <?php
+            if (isset($_SESSION['user_status'])) {
+            ?>
+                <button type="submit" class="btn submit-btn" name="submit">Submit</button>
+                <button class="btn cancel-btn">Cancel</button>
+            <?php
+            } else {
+            ?>
+                Please log in to post your review.
+            <?php
+            }
+            $sqlU = "SELECT * FROM users WHERE user_id =" . $_SESSION['user_id'];
+            $sqlR = mysqli_fetch_assoc(mysqli_query($conn, $sqlU));
+            ?>
+        </div>
+        <p style="text-align: left;margin-top: 10px;">Commenting as <span style="color: var(--primary-color);"><?php echo $sqlR['first_name'] . ' ' . $sqlR['last_name'] ?></span></p>
+    </form>
+</div>
+
 <div class="recommendation">
     <div class="hero-heading">
         <div class="hero-top-heading">
@@ -307,15 +298,42 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                     <h1><?php echo $rowo['name'] ?></h1>
 
                     <div class="price">Rs. <?php echo $rowo['price'] ?></div>
+                    <?php
+                    $product_id = $rowo['product_id'];
+
+                    $ratingQuery = "SELECT rating FROM reviews WHERE product_id = '$product_id'";
+                    $ratingResult = mysqli_query($conn, $ratingQuery);
+
+                    $ratings = [];
+                    while ($ratingRow = mysqli_fetch_assoc($ratingResult)) {
+                        $ratings[] = $ratingRow['rating'];
+                    }
+
+                    // Calculate total reviews and average rating
+                    $total_reviews = count($ratings);
+                    $average_rating = $total_reviews > 0 ? array_sum($ratings) / $total_reviews : 0;
+
+                    // Round the average rating to the nearest half
+                    $rounded_rating = round($average_rating * 2) / 2;
+                    ?>
                     <div class="rating">
                         <ul>
-                            <li><i class='bx bxs-star checked'></i></li>
-                            <li><i class='bx bxs-star checked'></i></li>
-                            <li><i class='bx bxs-star checked'></i></li>
-                            <li><i class='bx bxs-star checked'></i></li>
-                            <li><i class='bx bx-star'></i></li>
+                            <?php
+                            for ($i = 1; $i <= 5; $i++) {
+                                if ($rounded_rating >= $i) {
+                                    // Full star
+                                    echo "<li><i class='bx bxs-star checked'></i></li>";
+                                } elseif ($rounded_rating >= $i - 0.5) {
+                                    // Half star (optional, depending on your icon set)
+                                    echo "<li><i class='bx bxs-star-half checked'></i></li>";
+                                } else {
+                                    // Empty star
+                                    echo "<li><i class='bx bx-star'></i></li>";
+                                }
+                            }
+                            ?>
                         </ul>
-                        <span>(88)</span>
+                        <span>(<?= $total_reviews ?>)</span>
                     </div>
                     <?php
                     if ($rowo['stock_quantity'] < 1) {
@@ -349,3 +367,77 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 include_once('./includes/footer-menu.php');
 include_once('./includes/footer.php');
 ?>
+
+<script>
+    const allStars = document.querySelectorAll('.stars-container .single-star');
+    const ratingInput = document.querySelector('.stars-container input');
+    const form = document.querySelector('form');
+    const cancelButton = document.querySelector('.cancel-btn');
+
+    // Handle star rating selection
+    allStars.forEach((item, idx) => {
+        item.addEventListener('click', function() {
+            let click = 0;
+            ratingInput.value = idx + 1;
+
+            allStars.forEach(i => {
+                i.classList.replace('bxs-star', 'bx-star');
+                i.classList.remove('active-star');
+            });
+            for (let i = 0; i < allStars.length; i++) {
+                if (i <= idx) {
+                    allStars[i].classList.replace('bx-star', 'bxs-star');
+                    allStars[i].classList.add('active-star');
+                } else {
+                    allStars[i].style.setProperty('--i', click);
+                    click++;
+                }
+            }
+        });
+    });
+
+    // Handle form reset with Cancel button
+    cancelButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default button behavior
+
+        // Reset form fields
+        form.reset();
+
+        // Reset star ratings
+        allStars.forEach(star => {
+            star.classList.replace('bxs-star', 'bx-star'); // Reset star style
+            star.classList.remove('active-star'); // Remove active class from stars
+        });
+        ratingInput.value = ''; // Reset hidden input value
+    });
+    form.addEventListener('submit', (event) => {
+        // event.preventDefault();
+        const error = document.querySelector('.error-message');
+        const opinionInput = document.querySelector('.opinion');
+        let isValid = true;
+
+        // Clear any existing error messages
+        error.classList.add("hidden");
+
+        // Check if a rating has been selected
+        if (!ratingInput.value) {
+            error.innerHTML = "Please select a star rating";
+            error.classList.remove("hidden");
+            isValid = false;
+        }
+
+        // Check if the opinion is provided
+        if (opinionInput.value.trim() === '') {
+            error.innerHTML = "Please provide your opinion.";
+            error.classList.remove("hidden");
+            isValid = false;
+        }
+
+        console.log(isValid);
+        // If any validation fails, prevent form submission
+        if (!isValid) {
+            event.preventDefault();
+            return false;
+        }
+    });
+</script>
