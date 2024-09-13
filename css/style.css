@@ -1787,7 +1787,7 @@
   position: relative;
 }
 
-.account-menu ul li  {
+.account-menu ul li {
   display: flex;
   gap: 5px;
   align-items: center;
@@ -1804,7 +1804,7 @@
 .account-menu ul a:hover li {
   color: var(--primary-color);
 }
-.account-menu ul a li.active  {
+.account-menu ul a li.active {
   color: var(--primary-color);
 }
 .account-menu ul li.active::after {
@@ -1852,11 +1852,10 @@
   flex-direction: column;
   gap: 5px;
 }
-.account-content .profile-details{
+.account-content .profile-details {
   margin-top: 20px;
 }
-.profile-details-heading
-{
+.profile-details-heading {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1865,11 +1864,10 @@
   font-weight: 500;
   font-size: 20px;
 }
-.profile-details-inputs
-{
+.profile-details-inputs {
   width: 100%;
 }
-.profile-details-inputs input{
+.profile-details-inputs input {
   height: 35px;
   border: 1px solid var(--hr-color);
   outline: none;
@@ -1877,34 +1875,98 @@
   caret-color: var(--primary-color);
   width: 90%;
 }
-.profile-details-inputs .form-group
-{
+.profile-details-inputs .form-group {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 5px;
 }
-.profile-details-inputs .personal-details,.profile-details-inputs .ep{
+.profile-details-inputs .personal-details,
+.profile-details-inputs .ep {
   display: flex;
 }
-.profile-details-inputs .form-group label{
+.profile-details-inputs .form-group label {
   color: var(--input-color);
   font-weight: 450;
 }
-.ep .form-group{
+.ep .form-group {
   margin-top: 10px;
 }
-.profile-details-inputs .error-message
-{
+.profile-details-inputs .error-message {
   margin: 10px 0;
 }
-.profile-details-inputs button{
+.profile-details-inputs button {
   padding: 0 25px;
   border-radius: 5px;
 }
 
-
 /* Accounts Page Ends */
+
+.product-reviews{
+  padding: 50px;
+}
+.product-reviews .review-heading{
+  font-size: 28px;
+  font-weight: 600;
+}
+.product-reviews .reviews{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+
+}
+.product-reviews .comment-part{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid  var(--primary-color);
+}
+.product-reviews .comment-part:first-child
+{
+  border-top: 2px solid var(--primary-color);
+}
+.product-reviews .comment-part .user-img-part{
+  display: flex;
+  gap: 20px;
+}
+.product-reviews .user-text{
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+}
+.product-reviews .user-img img{
+  height: 80px;
+  width: 80px;
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+}
+.product-reviews .user-text h4{
+  color: var(--input-color);
+  font-size: 14px;
+}
+.product-reviews .user-text p{
+  font-size: 18px;
+  font-weight: 600;
+}
+.product-reviews .comment
+{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.product-reviews .comment i {
+  color: #FDC91B;
+  font-size: 25px;
+}
+.product-reviews .comment p{
+  text-align: justify;
+}
+
 
 @media (max-width: 500px) {
   .notification-wrapper {
@@ -2012,8 +2074,7 @@
   .our-story .banner img {
     height: auto;
   }
-  .account-content .account-cards
-  {
+  .account-content .account-cards {
     flex-wrap: wrap;
   }
 }
@@ -2066,8 +2127,8 @@
   .my-cart .further-cart-info .coupen-code input {
     width: 100%;
   }
-  .profile-details-inputs .personal-details,.profile-details-inputs .ep
-  {
+  .profile-details-inputs .personal-details,
+  .profile-details-inputs .ep {
     flex-direction: column;
   }
 }
@@ -2136,17 +2197,23 @@
   .product-view .view-details {
     width: 100%;
   }
-  .account-section
-  {
+  .account-section {
     flex-direction: column;
   }
-  .account-menu ul{
+  .account-menu ul {
     flex-direction: row;
     overflow-x: auto;
     /* justify-content: space-evenly; */
   }
-  .account-menu ul a li{
+  .account-menu ul a li {
     width: max-content;
+  }
+  .product-reviews .comment-part{
+    gap: 40px;
+  }
+  .product-reviews .comment-part .user-img-part{
+    flex-direction: column;
+    gap: 0px;
   }
 }
 @media screen and (max-width: 600px) {
@@ -2158,6 +2225,10 @@
   }
   .our-story .story-info {
     width: auto;
+  }
+  .product-reviews .comment-part{
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
@@ -2258,6 +2329,7 @@
   .product-view .product-view-details .heading {
     font-size: 18px;
   }
+  
 }
 @media (max-width: 445px) {
   .indicators {

@@ -166,6 +166,124 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
     </div>
 
 
+
+</div>
+<div class="product-reviews">
+    <div class="review-heading">Reviews</div>
+    <div class="review-details">
+        <div class="reviews">
+            <div class="comment-part">
+                <div class="user-img-part">
+                    <div class="user-img">
+                        <img src="https://via.placeholder.com/150">
+                    </div>
+                    <div class="user-text">
+                        <h4>8 days ago</h4>
+                        <p>Tom kok</p>
+
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="comment">
+                    <div class="comment-ratings">
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star-half"></i>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco.</p>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="comment-part">
+                <div class="user-img-part">
+                    <div class="user-img">
+                        <img src="https://via.placeholder.com/150">
+                    </div>
+                    <div class="user-text">
+                        <h4>30 days ago</h4>
+                        <p>Win Rool</p>
+
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="comment">
+                    <div class="comment-ratings">
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star-half"></i>
+
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco.</p>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="comment-part">
+                <div class="user-img-part">
+                    <div class="user-img">
+                        <img src="https://via.placeholder.com/150
+
+">
+                    </div>
+                    <div class="user-text">
+                        <h4>1 days ago</h4>
+                        <p>Jui Choal</p>
+
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="comment">
+                    <div class="comment-ratings">
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star-half"></i>
+
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco.</p>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="comment-part">
+                <div class="user-img-part">
+                    <div class="user-img">
+                        <img src="https://via.placeholder.com/150">
+                    </div>
+                    <div class="user-text">
+                        <h4>24 days ago</h4>
+                        <p>Jack Mins</p>
+
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="comment">
+                    <div class="comment-ratings">
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star"></i>
+                        <i aria-hidden="true" class="bx bxs-star-half"></i>
+
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco.</p>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+        </div>
+    </div>
 </div>
 <div class="recommendation">
     <div class="hero-heading">
