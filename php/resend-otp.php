@@ -1,6 +1,10 @@
 <?php
 include_once("../includes/connect.php");
-
+if(!isset($_GET['email']))
+{
+    header("location:../forgot-password.php");
+    exit();
+}
 function generateOTP($length = 6)
 {
     $otp = '';
@@ -13,7 +17,7 @@ function generateOTP($length = 6)
 
     return $otp;
 }
-$email = $_POST['email'];
+$email = $_GET['email'];
 
 $sql = "SELECT * FROM users WHERE email='$email'";
 $result = mysqli_query($conn, $sql);
@@ -27,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
         $sql = "UPDATE users SET otp='$otp' WHERE email='$email'";
         if (mysqli_query($conn, $sql)) {
             setcookie("email", $email, time() + 3600, "/");
-            echo "success";
+            header("location:../verify-otp.php");
         }
     } else {
         echo "Failed to send OTP.";
