@@ -25,7 +25,7 @@ if (isset($_SESSION['user_status'])) {
                 This is an error.
             </div>
             <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-fluid">
+                <input type="submit" value="Submit" class=" submitbtn btn btn-fluid">
             </div>
         </form>
         <div class="horizontal-line"></div>
@@ -74,6 +74,7 @@ if (isset($_SESSION['user_status'])) {
 
             if (valid) {
                 const form = document.querySelector("#userLogin");
+                const submitBtn = document.querySelector('.submitbtn');
                 const formData = new FormData(form);
                 const xhr = new XMLHttpRequest();
                 xhr.open("POST", "php/forgot-password.php", true);
@@ -82,6 +83,7 @@ if (isset($_SESSION['user_status'])) {
                         if (xhr.status === 200) {
                             const response = xhr.response;
                             if (response === "success") {
+                               
                                 location.href = "verify-otp.php";
                             } else {
                                 showError(response);
