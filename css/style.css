@@ -2074,7 +2074,7 @@
   margin: 0;
 }
 .otp-fields input[type="number"] {
-  -moz-appearance: textfield;
+  appearance: textfield;
 }
 .verification-container button {
   background-color: var(--primary-color);
