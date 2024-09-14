@@ -1929,6 +1929,8 @@
 .product-reviews .comment-part .user-img-part {
   display: flex;
   gap: 20px;
+  width: 291px;
+  align-items: center;
 }
 .product-reviews .user-text {
   display: flex;
@@ -2291,6 +2293,10 @@
   .product-reviews .comment-part .user-img-part {
     flex-direction: column;
     gap: 0px;
+  }
+  .product-reviews .comment
+  {
+    width: 100%;
   }
 }
 @media screen and (max-width: 600px) {

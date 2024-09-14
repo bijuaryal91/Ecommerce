@@ -10,6 +10,8 @@ if (!isset($_GET['productId'])) {
     exit();
 }
 $productId = $_GET['productId'];
+
+$userIdO = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "";
 ?>
 <?php
 $sql = "SELECT * FROM products WHERE product_id=" . $productId;
@@ -246,7 +248,7 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
     <form action="./php/submit-review.php" method="post">
         <div class="stars-container">
             <input type="number" name="rating" hidden>
-            <input type="hidden" name="uid" value="<?php echo $_SESSION['user_id'] ?>">
+            <input type="hidden" name="uid" value="<?php echo $userIdO ?>">
             <input type="hidden" name="pid" value="<?php echo $_GET['productId'] ?>">
             <i class='bx bx-star single-star' style="--i: 0;"></i>
             <i class='bx bx-star single-star' style="--i: 1;"></i>
@@ -268,11 +270,18 @@ $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                 Please log in to post your review.
             <?php
             }
-            $sqlU = "SELECT * FROM users WHERE user_id =" . $_SESSION['user_id'];
-            $sqlR = mysqli_fetch_assoc(mysqli_query($conn, $sqlU));
+
             ?>
         </div>
-        <p style="text-align: left;margin-top: 10px;">Commenting as <span style="color: var(--primary-color);"><?php echo $sqlR['first_name'] . ' ' . $sqlR['last_name'] ?></span></p>
+        <?php
+        if ($userIdO !== "") {
+            $sqlU = "SELECT * FROM users WHERE user_id =" .  $userIdO;
+            $sqlR = mysqli_fetch_assoc(mysqli_query($conn, $sqlU));
+        ?>
+            <p style="text-align: left;margin-top: 10px;">Commenting as <span style="color: var(--primary-color);"><?php echo $sqlR['first_name'] . ' ' . $sqlR['last_name'] ?></span></p>
+        <?php
+        }
+        ?>
     </form>
 </div>
 
