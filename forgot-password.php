@@ -85,13 +85,18 @@ if(isset($_SESSION['user_status']))
                         if (xhr.status === 200) {
                             const response = xhr.response;
                             if (response === "success") {
-                               
+                                errorMessage.classList.add("hidden");
+
                                 location.href = "verify-otp.php";
                             } else {
                                 showError(response);
+                                submitBtn.value="Submit";
+
                             }
                         } else {
                             showError("Error Occured");
+                            submitBtn.value="Submit";
+
                         }
                     }
                 };
