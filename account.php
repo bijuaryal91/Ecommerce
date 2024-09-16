@@ -128,7 +128,7 @@ $user_id = $_SESSION['user_id'];
             $detailsSql = "SELECT * FROM wishlists WHERE user_id='$user_id'";
             $result = mysqli_query($conn, $detailsSql);
             $row = mysqli_fetch_assoc($result);
-            $wishlistId = $row['wishlist_id'];
+            $wishlistId = isset($row['wishlist_id']) ? $row['wishlist_id'] : $row['wishlist_id'];
 
             $aSql = "SELECT * FROM wishlist_items WHERE wishlist_id='$wishlistId'";
             $aResult = mysqli_query($conn, $aSql);
@@ -145,7 +145,7 @@ $user_id = $_SESSION['user_id'];
             $detailsSql = "SELECT * FROM carts WHERE user_id='$user_id'";
             $result = mysqli_query($conn, $detailsSql);
             $row = mysqli_fetch_assoc($result);
-            $cartId = $row['cart_id'];
+            $cartId = isset($row['cart_id']) ? $row['cart_id'] : '';
 
             $aSql = "SELECT * FROM cart_items WHERE cart_id='$cartId'";
             $aResult = mysqli_query($conn, $aSql);
