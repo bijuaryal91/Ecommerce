@@ -6,7 +6,7 @@ include_once("./includes/connect.php");
 if (!isset($_SESSION['user_status'])) {
     header("location:login.php");
 }
-if ($_COOKIE['isCameFromCart'] != "true") {
+if ($_COOKIE['isCameFromCart'] !== "true") {
     header("location:cart.php");
 }
 $user_id = $_SESSION['user_id'];

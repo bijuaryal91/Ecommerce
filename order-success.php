@@ -283,7 +283,7 @@ $temp_name = $_SESSION['name'];
 
 // Destroy all session variables
 session_unset();
-
+setcookie("isCameFromCart", "", time() - 3600, "/", "", true, true);
 // Restore the required session values
 $_SESSION['user_id'] = $temp_user_id;
 $_SESSION['user_status'] = $temp_user_status;
