@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Email validation
-    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const emailRegex = /^[a-zA-Z]{3,}[\w.-]*@[a-zA-Z]{3,}\.[a-zA-Z]{2,3}$/;
     if (!email || !emailRegex.test(email)) {
       showError("Please enter a valid email address.");
       valid = false;
