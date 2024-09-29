@@ -1,6 +1,33 @@
 <?php
 // Include the database connection
 include_once("../includes/connect.php");
+// Secret key for encryption (Base64 encoded)
+$secretKey = "ai3wswUUG0ISDplpmmCTs/lKIqfl8kt3WrUikaTEx2A=";
+
+function encryptPassword($data, $secretKey)
+{
+    // Initialization vector (IV) used for encryption (Base64 encoded)
+    $ivBase64 = "TD3X/3oGsbZRDL7Rop8Vbg==";
+
+    // Decode the Base64 encoded secret key and IV
+    $encryptionKey = base64_decode($secretKey);
+    $iv = base64_decode($ivBase64);
+
+    // Specify the encryption algorithm to be used
+    $encryptionAlgorithm = "AES-256-CBC";
+
+    // Encrypt the data using the specified algorithm, key, and IV
+    $encryptedText = openssl_encrypt($data, $encryptionAlgorithm, $encryptionKey, OPENSSL_RAW_DATA, $iv);
+
+    // Encode the encrypted data to Base64 format for safe storage or transmission
+    $encryptedTextBase64 = base64_encode($encryptedText);
+
+    // Return the encrypted password in Base64 format
+    return $encryptedTextBase64;
+}
+
+
+
 
 $fname = mysqli_real_escape_string($conn, $_POST['fname']);
 $lname = mysqli_real_escape_string($conn, $_POST['lname']);
@@ -8,7 +35,7 @@ $email = mysqli_real_escape_string($conn, $_POST['email']);
 $phone = mysqli_real_escape_string($conn, $_POST['phone']);
 $pass = mysqli_real_escape_string($conn, $_POST['password']);
 $cpass = mysqli_real_escape_string($conn, $_POST['cpassword']);
-$password = md5($pass); // Encrypt the password
+$password = encryptPassword($pass, $secretKey); // Encrypt the password
 $verification_token = md5(rand()); // Generate a unique token
 $created_at = date("Y-m-d H:i:s"); // Store the current timestamp
 
@@ -29,7 +56,7 @@ if (mysqli_num_rows($result) > 0) {
         // Send verification email
         $to = $email;
         $subject = "Verify Your Email Address";
-        $verification_link = "http://localhost/reeyaEcommerce/verify-user.php?token=" . $verification_token;
+        $verification_link = "http://localhost/rkjewellers/verify-user.php?token=" . $verification_token;
 
         // HTML email content
         $message = "
