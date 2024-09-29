@@ -44,6 +44,7 @@ $connection = mysqli_connect("localhost", "root", "", "rk_db");
         </a>
         <ul class="side-menu">
             <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="statistics.php"><i class='bx bx-credit-card-front'></i>Statistics</a></li>
             <li><a href="generate-report.php"><i class='bx bx-credit-card-front'></i>Generate Reports</a></li>
             <li><a href="products.php"><i class='bx bx-store-alt'></i>Products</a></li>
             <li><a href="add-product.php"><i class='bx bxl-product-hunt'></i>Add Products</a></li>
