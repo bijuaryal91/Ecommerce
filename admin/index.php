@@ -121,7 +121,7 @@ include_once("./php/connection.php");
                     }
                 } else {
                     // If no records are found, display a message
-                    echo "<tr><td colspan='7'>No categories found</td></tr>";
+                    echo "<tr><td colspan='7'>No orders found</td></tr>";
                 }
                 ?>
             </tbody>

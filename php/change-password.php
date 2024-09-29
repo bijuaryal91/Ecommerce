@@ -2,6 +2,31 @@
 include_once("../includes/connect.php");
 session_start();
 
+
+$secretKey = "ai3wswUUG0ISDplpmmCTs/lKIqfl8kt3WrUikaTEx2A=";
+
+function encryptPassword($data, $secretKey)
+{
+    // Initialization vector (IV) used for encryption (Base64 encoded)
+    $ivBase64 = "TD3X/3oGsbZRDL7Rop8Vbg==";
+
+    // Decode the Base64 encoded secret key and IV
+    $encryptionKey = base64_decode($secretKey);
+    $iv = base64_decode($ivBase64);
+
+    // Specify the encryption algorithm to be used
+    $encryptionAlgorithm = "AES-256-CBC";
+
+    // Encrypt the data using the specified algorithm, key, and IV
+    $encryptedText = openssl_encrypt($data, $encryptionAlgorithm, $encryptionKey, OPENSSL_RAW_DATA, $iv);
+
+    // Encode the encrypted data to Base64 format for safe storage or transmission
+    $encryptedTextBase64 = base64_encode($encryptedText);
+
+    // Return the encrypted password in Base64 format
+    return $encryptedTextBase64;
+}
+
 $oldPassword = $_POST['opassword'];
 $newPassword = $_POST['password'];
 $cNewPassword = $_POST['cpassword'];
@@ -19,7 +44,7 @@ if ($row['password'] === md5($oldPassword)) {
             if ($newPassword === $oldPassword) {
                 echo "You can not change your password same as old!";
             } else {
-                $password = md5($newPassword);
+                $password = encryptPassword($newPassword,$secretKey);
 
                 if (mysqli_query($conn, "UPDATE users SET password='$password' WHERE user_id='$user_id'")) {
                     echo "success";
