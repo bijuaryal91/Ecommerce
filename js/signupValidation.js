@@ -65,6 +65,12 @@ document.addEventListener("DOMContentLoaded", () => {
       valid = false;
       return false;
     }
+    const nameRegex = /^[A-Za-z\s]+$/;
+    if (!nameRegex.test(fname) || !nameRegex.test(lname)) {
+      showError("Name shouldn't contain any numbers or special char!");
+      valid = false;
+      return;
+    }
 
     // Email validation
     const emailRegex = /^[a-zA-Z]{3,}[\w.-]*@[a-zA-Z]{3,}\.[a-zA-Z]{2,3}$/;
