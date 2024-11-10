@@ -98,4 +98,4 @@ This project is a full-featured e-commerce website tailored for online jewelry s
 5. Open a Pull Request
 
 ## License
-This project is licensed under the MIT [License](License). See the LICENSE file for more details.
+This project is licensed under the MIT [License](LICENSE). See the LICENSE file for more details.
