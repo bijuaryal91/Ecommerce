@@ -74,8 +74,8 @@ This project is a full-featured e-commerce website tailored for online jewelry s
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-username/jewelry-ecommerce-site.git
-   cd jewelry-ecommerce-site
+   git clone https://github.com/bijuaryal91/Ecommerce.git
+   cd Ecommerce
 
 2. **Database Setup**
 - Import the SQL file located at DB/rk_db.sql into your MySQL database.
@@ -98,4 +98,4 @@ This project is a full-featured e-commerce website tailored for online jewelry s
 5. Open a Pull Request
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT [License](License). See the LICENSE file for more details.
